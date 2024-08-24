@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>wxdgaming.spring.boot</groupId>
+        <artifactId>wxdgaming.spring.boot</artifactId>
+        <version>1.0.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>wxdgaming.spring.gamebase</groupId>
+    <artifactId>wxdgaming.spring.gamebase</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>boot-start</module>
+        <module>entity</module>
+        <module>game</module>
+        <module>chat</module>
+        <module>login</module>
+        <module>gate</module>
+    </modules>
+
+    <properties>
+        <encoding>UTF-8</encoding>
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+        <maven.compiler.encoding>${encoding}</maven.compiler.encoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>public</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <!--            <url>https://repo1.maven.org/maven2/</url>-->
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://maven.aliyun.com/repository/central</url>
+            <!--            <url>https://repo1.maven.org/maven2/</url>-->
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>public</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>central</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>data</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>data-batis</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>data-excel</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>data-redis</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>message</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>net</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>rpc</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>script-lua</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wxdgaming.spring.boot</groupId>
+            <artifactId>web-client</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
