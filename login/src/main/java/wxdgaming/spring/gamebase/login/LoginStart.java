@@ -1,4 +1,4 @@
-package wxdgaming.spring.gamebase;
+package wxdgaming.spring.gamebase.login;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +24,10 @@ import wxdgaming.spring.boot.net.client.WebSocketClient;
 import wxdgaming.spring.boot.rpc.RpcScan;
 import wxdgaming.spring.boot.rpc.RpcService;
 import wxdgaming.spring.boot.rpc.pojo.RpcMessage;
-import wxdgaming.spring.boot.start.bean.entity.User;
-import wxdgaming.spring.boot.start.bean.repository.UserRepository;
 import wxdgaming.spring.boot.web.WebScan;
+import wxdgaming.spring.boot.weblua.WebLuaScan;
+import wxdgaming.spring.gamebase.login.data.entity.User;
+import wxdgaming.spring.gamebase.login.data.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,11 +40,11 @@ import java.util.List;
  * @version: 2024-08-08 19:54
  **/
 @Slf4j
-@EntityScan("wxdgaming.spring.boot.start")
-@EnableJpaRepositories("wxdgaming.spring.boot.start")
+@EntityScan("wxdgaming.spring.gamebase.login")
+@EnableJpaRepositories("wxdgaming.spring.gamebase.login")
 @SpringBootApplication(
         scanBasePackageClasses = {
-                ApplicationStart.class,
+                LoginStart.class,
                 CoreScan.class,
                 DataBatisScan.class,
                 DataRedisScan.class,
@@ -51,16 +52,17 @@ import java.util.List;
                 NetScan.class,
                 RpcScan.class,
                 WebScan.class,
+                WebLuaScan.class,
         },
         exclude = {
                 DataSourceAutoConfiguration.class,
                 MongoAutoConfiguration.class
         }
 )
-public class ApplicationStart {
+public class LoginStart {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(ApplicationStart.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(LoginStart.class, args);
 
         SpringUtil ins = SpringUtil.getIns();
         ins.withMethodAnnotated(Start.class)
@@ -105,13 +107,13 @@ public class ApplicationStart {
 
         for (int i = 0; i < 100; i++) {
             long nanoTime = System.nanoTime();
-            userRepository.saveAndFlush(new User().setUid(System.nanoTime()).setUserName(RandomStringUtils.randomAlphanumeric(32)));
+            userRepository.saveAndFlush(new User().setOpenId(String.valueOf(System.nanoTime())).setAccount(RandomStringUtils.randomAlphanumeric(32)));
             log.info("插入 耗时：{} ms", (System.nanoTime() - nanoTime) / 10000 / 100f);
         }
         {
             List<User> users = new ArrayList<>();
             for (int i = 0; i < 100; i++) {
-                users.add(new User().setUid(System.nanoTime()).setUserName(RandomStringUtils.randomAlphanumeric(32)));
+                users.add(new User().setOpenId(String.valueOf(System.nanoTime())).setAccount(RandomStringUtils.randomAlphanumeric(32)));
             }
             long nanoTime = System.nanoTime();
             userRepository.saveAllAndFlush(users);

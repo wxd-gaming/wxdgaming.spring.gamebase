@@ -1,8 +1,8 @@
-package wxdgaming.spring.gamebase.data.repository;
+package wxdgaming.spring.gamebase.login.data.repository;
 
 import org.springframework.stereotype.Repository;
 import wxdgaming.spring.boot.data.batis.BaseJpaRepository;
-import wxdgaming.spring.gamebase.data.entity.User;
+import wxdgaming.spring.gamebase.login.data.entity.User;
 
 /**
  * 用户

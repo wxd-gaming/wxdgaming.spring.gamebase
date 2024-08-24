@@ -1,9 +1,10 @@
-package wxdgaming.spring.gamebase.data.entity;
+package wxdgaming.spring.gamebase.login.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DialectOverride;
 
 /**
  * @author: wxd-gaming(無心道, 15388152619)
@@ -25,4 +26,7 @@ public class User {
     private String token;
     @Column(columnDefinition = "LONGTEXT COMMENT '其他数据'")
     private String other;
+    @Column(columnDefinition = "LONGTEXT COMMENT '其他数据'")
+    private String tmp;
+
 }
