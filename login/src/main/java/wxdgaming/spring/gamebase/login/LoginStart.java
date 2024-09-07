@@ -2,7 +2,6 @@ package wxdgaming.spring.gamebase.login;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -26,12 +25,8 @@ import wxdgaming.spring.boot.rpc.RpcService;
 import wxdgaming.spring.boot.rpc.pojo.RpcMessage;
 import wxdgaming.spring.boot.web.WebScan;
 import wxdgaming.spring.boot.weblua.WebLuaScan;
-import wxdgaming.spring.gamebase.login.data.entity.User;
-import wxdgaming.spring.gamebase.login.data.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * 启动器
@@ -65,43 +60,33 @@ public class LoginStart {
         ConfigurableApplicationContext run = SpringApplication.run(LoginStart.class, args);
 
         SpringUtil ins = SpringUtil.getIns();
-        ins.withMethodAnnotated(Start.class)
-                .forEach(method -> {
-                    try {
-                        Object bean = ins.getBean(method.getDeclaringClass());
-                        method.setAccessible(true);
-                        Object[] array = Arrays.stream(method.getParameterTypes()).map(ins::getBean).toArray();
-                        method.invoke(bean, array);
-                    } catch (Exception e) {
-                        throw new RuntimeException(method.toString(), e);
-                    }
-                });
+        ins.executor(Start.class);
 
-        // RpcService rpcService = ins.getBean(RpcService.class);
-        //
-        // RpcMessage.ReqRemote rpcMessage = new RpcMessage.ReqRemote();
-        // rpcMessage
-        //         .setRpcId(1)
-        //         .setPath("rpcTest")
-        //         .setRpcToken(rpcService.getRPC_TOKEN())
-        //         .setParams(new JSONObject().fluentPut("type", 1).toString())
-        // ;
-        //
-        // try {
-        //     SocketSession session = run.getBean(TcpSocketClient.class).getSession();
-        //     session.writeAndFlush("string message");
-        //     Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
-        //     rpc.subscribe(str -> log.debug("{}", str));
-        //     // rpc.block();
-        // } catch (Exception ignore) {}
-        //
-        // try {
-        //     SocketSession session = run.getBean(WebSocketClient.class).getSession();
-        //     session.writeAndFlush("string message");
-        //     Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
-        //     rpc.subscribe(str -> log.debug("{}", str));
-        //     // rpc.block();
-        // } catch (Exception ignore) {}
+        RpcService rpcService = ins.getBean(RpcService.class);
+
+        RpcMessage.ReqRemote rpcMessage = new RpcMessage.ReqRemote();
+        rpcMessage
+                .setRpcId(1)
+                .setPath("rpcTest")
+                .setRpcToken(rpcService.getRPC_TOKEN())
+                .setParams(new JSONObject().fluentPut("type", 1).toString())
+        ;
+
+        try {
+            SocketSession session = run.getBean(TcpSocketClient.class).idleSession();
+            session.writeAndFlush("string message");
+            Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
+            rpc.subscribe(str -> log.debug("{}", str));
+            // rpc.block();
+        } catch (Exception ignore) {}
+
+        try {
+            SocketSession session = run.getBean(WebSocketClient.class).idleSession();
+            session.writeAndFlush("string message");
+            Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
+            rpc.subscribe(str -> log.debug("{}", str));
+            // rpc.block();
+        } catch (Exception ignore) {}
 
         // UserRepository userRepository = run.getBean(UserRepository.class);
         //
