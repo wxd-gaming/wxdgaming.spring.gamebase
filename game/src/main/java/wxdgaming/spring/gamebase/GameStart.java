@@ -60,8 +60,8 @@ public class GameStart {
         Mono<String> request = rpcService.request(
                 loginClient.idleSession(),
                 "/sdk/login",
-                new JSONObject().fluentPut("account", "test1")
-                        .fluentPut("token", "1")
+                new JSONObject().fluentPut("account", "test2")
+                        .fluentPut("token", "test22")
                         .fluentPut("channel", "local")
         );
         request.subscribe(string -> log.info("登录结果: {}", string));

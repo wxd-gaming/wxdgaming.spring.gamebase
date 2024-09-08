@@ -20,6 +20,7 @@ import wxdgaming.spring.boot.rpc.RpcScan;
 import wxdgaming.spring.boot.rpc.RpcService;
 import wxdgaming.spring.boot.rpc.pojo.RpcMessage;
 import wxdgaming.spring.boot.web.WebScan;
+import wxdgaming.spring.boot.webclient.WebClientScan;
 
 /**
  * 启动器
@@ -35,11 +36,10 @@ import wxdgaming.spring.boot.web.WebScan;
                 LoginStart.class,
                 CoreScan.class,
                 DataBatisScan.class,
-                DataRedisScan.class,
-                DataExcelScan.class,
                 NetScan.class,
                 RpcScan.class,
                 WebScan.class,
+                WebClientScan.class,
         },
         exclude = {
                 DataSourceAutoConfiguration.class,

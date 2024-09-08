@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.DialectOverride;
 import wxdgaming.spring.boot.data.batis.converter.JSONObjectToJsonConverter;
 
 /**
@@ -15,21 +14,39 @@ import wxdgaming.spring.boot.data.batis.converter.JSONObjectToJsonConverter;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(indexes = {
+        @Index(columnList = "account", unique = false)
+})
 @Accessors(chain = true)
 public class User {
 
     @Id
-    @Column(length = 64)
+    @Column(columnDefinition = "varchar(64) COMMENT '唯一id'")
     private String openId;
-    @Column(length = 64)
+    @Column(columnDefinition = "varchar(64) COMMENT '渠道'", nullable = false)
+    private String channel;
+    @Column(columnDefinition = "varchar(64) COMMENT '账号'", nullable = false)
     private String account;
-    @Column(length = 64)
+    @Column(columnDefinition = "varchar(64) COMMENT '密钥'", nullable = false)
     private String token;
+    @Column(columnDefinition = "bigint NOT NULL DEFAULT 0 COMMENT '创建时间'")
+    private long createTime;/*这个账号创建时间不已这个字段为准而是，通过es等系统的登录日志记录*/
+    @Column(columnDefinition = "bigint NOT NULL DEFAULT 0 COMMENT '被触摸的时间'")
+    private long touchTime;
+    @Column(columnDefinition = "bigint NOT NULL DEFAULT 0 COMMENT '登录成功时间'")
+    private long loginTime;
+    @Column(columnDefinition = "bigint NOT NULL DEFAULT 0 COMMENT '登录次数'")
+    private long loginCount;
     @Convert(converter = JSONObjectToJsonConverter.class)
     @Column(columnDefinition = "LONGTEXT COMMENT '其他数据'")
     private JSONObject other;
-    @Column(columnDefinition = "LONGTEXT COMMENT '其他数据'")
-    private String tmp;
+
+    @Override public String toString() {
+        return "User{" +
+                "openId='" + openId + '\'' +
+                ", channel='" + channel + '\'' +
+                ", account='" + account + '\'' +
+                '}';
+    }
 
 }
