@@ -12,7 +12,6 @@ import java.util.Map;
  * @version: 2024-09-08 08:28
  **/
 public enum LoginChannel implements IEnum {
-    None(0, "默认值"),
     Local(100, "本地"),
     Quick(200, "易接sdk"),
     ;
@@ -21,6 +20,15 @@ public enum LoginChannel implements IEnum {
 
     public static LoginChannel of(int value) {
         return static_map.get(value);
+    }
+
+    public static LoginChannel of(String value) {
+        for (LoginChannel loginChannel : values()) {
+            if (value.equalsIgnoreCase(loginChannel.name())) {
+                return loginChannel;
+            }
+        }
+        return null;
     }
 
     public static LoginChannel ofOrException(int value) {

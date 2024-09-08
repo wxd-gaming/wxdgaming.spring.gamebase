@@ -1,7 +1,11 @@
 package wxdgaming.spring.gamebase.login.module.login.sdk;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import wxdgaming.spring.boot.core.lang.RunResult;
+import wxdgaming.spring.gamebase.login.module.login.ILogin;
+import wxdgaming.spring.gamebase.login.module.login.LoginChannel;
 
 /**
  * quick sdk
@@ -11,6 +15,15 @@ import org.springframework.stereotype.Service;
  **/
 @Slf4j
 @Service
-public class QuickSdk {
+public class QuickSdk implements ILogin {
+
+    @Override public LoginChannel channel() {
+        return LoginChannel.Quick;
+    }
+
+    @Override public RunResult login(String account, String token, JSONObject params) {
+
+        return null;
+    }
 
 }

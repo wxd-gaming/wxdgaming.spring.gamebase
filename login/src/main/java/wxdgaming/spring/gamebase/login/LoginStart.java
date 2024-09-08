@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import reactor.core.publisher.Mono;
 import wxdgaming.spring.boot.core.CoreScan;
 import wxdgaming.spring.boot.core.SpringUtil;
 import wxdgaming.spring.boot.core.ann.Start;
@@ -17,16 +16,10 @@ import wxdgaming.spring.boot.data.batis.DataBatisScan;
 import wxdgaming.spring.boot.data.excel.DataExcelScan;
 import wxdgaming.spring.boot.data.redis.DataRedisScan;
 import wxdgaming.spring.boot.net.NetScan;
-import wxdgaming.spring.boot.net.SocketSession;
-import wxdgaming.spring.boot.net.client.TcpSocketClient;
-import wxdgaming.spring.boot.net.client.WebSocketClient;
 import wxdgaming.spring.boot.rpc.RpcScan;
 import wxdgaming.spring.boot.rpc.RpcService;
 import wxdgaming.spring.boot.rpc.pojo.RpcMessage;
 import wxdgaming.spring.boot.web.WebScan;
-import wxdgaming.spring.boot.weblua.WebLuaScan;
-
-import java.util.Arrays;
 
 /**
  * 启动器
@@ -47,7 +40,6 @@ import java.util.Arrays;
                 NetScan.class,
                 RpcScan.class,
                 WebScan.class,
-                WebLuaScan.class,
         },
         exclude = {
                 DataSourceAutoConfiguration.class,
@@ -72,21 +64,21 @@ public class LoginStart {
                 .setParams(new JSONObject().fluentPut("type", 1).toString())
         ;
 
-        try {
-            SocketSession session = run.getBean(TcpSocketClient.class).idleSession();
-            session.writeAndFlush("string message");
-            Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
-            rpc.subscribe(str -> log.debug("{}", str));
-            // rpc.block();
-        } catch (Exception ignore) {}
-
-        try {
-            SocketSession session = run.getBean(WebSocketClient.class).idleSession();
-            session.writeAndFlush("string message");
-            Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
-            rpc.subscribe(str -> log.debug("{}", str));
-            // rpc.block();
-        } catch (Exception ignore) {}
+        // try {
+        //     SocketSession session = run.getBean(TcpSocketClient.class).idleSession();
+        //     session.writeAndFlush("string message");
+        //     Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
+        //     rpc.subscribe(str -> log.debug("{}", str));
+        //     // rpc.block();
+        // } catch (Exception ignore) {}
+        //
+        // try {
+        //     SocketSession session = run.getBean(WebSocketClient.class).idleSession();
+        //     session.writeAndFlush("string message");
+        //     Mono<String> rpc = rpcService.request(session, "rpcTest", new JSONObject().fluentPut("type", 1).toString());
+        //     rpc.subscribe(str -> log.debug("{}", str));
+        //     // rpc.block();
+        // } catch (Exception ignore) {}
 
         // UserRepository userRepository = run.getBean(UserRepository.class);
         //
