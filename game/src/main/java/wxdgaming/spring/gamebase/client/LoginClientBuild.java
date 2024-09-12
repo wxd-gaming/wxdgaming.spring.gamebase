@@ -26,7 +26,6 @@ import wxdgaming.spring.boot.rpc.RpcService;
  * @version: 2024-09-07 11:18
  **/
 @Getter
-@Setter
 @Controller
 @ConfigurationProperties("socket.client.login")
 public class LoginClientBuild extends SocketClientBuilder.Config {
