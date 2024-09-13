@@ -58,7 +58,7 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
             rpcService.request(
                     tcpSocketClient.idleSession(),
                     "/game/online",
-                    new JSONObject().fluentPut("sid", 1).fluentPut("onlineSize", RandomUtils.random(30000)).toJSONString()
+                    new JSONObject().fluentPut("sid", 1).fluentPut("onlineSize", RandomUtils.random(30000))
             );
         }
     }
