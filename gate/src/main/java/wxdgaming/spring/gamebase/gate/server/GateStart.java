@@ -1,6 +1,6 @@
-package wxdgaming.spring.gamebase;
+package wxdgaming.spring.gamebase.gate.server;
 
-public class Main {
+public class GateStart {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }

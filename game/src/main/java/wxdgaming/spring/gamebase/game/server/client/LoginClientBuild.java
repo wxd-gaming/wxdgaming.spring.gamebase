@@ -1,15 +1,11 @@
-package wxdgaming.spring.gamebase.client;
+package wxdgaming.spring.gamebase.game.server.client;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Controller;
-import wxdgaming.spring.boot.core.lang.RandomUtils;
+import org.springframework.context.annotation.Configuration;
 import wxdgaming.spring.boot.core.threading.DefaultExecutor;
 import wxdgaming.spring.boot.net.BootstrapBuilder;
 import wxdgaming.spring.boot.net.SessionHandler;
@@ -26,12 +22,12 @@ import wxdgaming.spring.boot.rpc.RpcService;
  * @version: 2024-09-07 11:18
  **/
 @Getter
-@Controller
+@Configuration
 @ConfigurationProperties("socket.client.login")
 public class LoginClientBuild extends SocketClientBuilder.Config {
 
     @Autowired RpcService rpcService;
-    TcpSocketClient tcpSocketClient = null;
+    TcpSocketClient loginClient = null;
 
     @Bean(name = "loginClient")
     @ConditionalOnProperty(prefix = "socket.client.login", name = "port")
@@ -41,7 +37,7 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
                                        ClientMessageDecode clientMessageDecode,
                                        ClientMessageEncode clientMessageEncode) {
 
-        tcpSocketClient = new TcpSocketClient(
+        loginClient = new TcpSocketClient(
                 defaultExecutor,
                 bootstrapBuilder,
                 socketClientBuilder,
@@ -49,18 +45,8 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
                 clientMessageDecode,
                 clientMessageEncode
         );
-        return tcpSocketClient;
+        return loginClient;
     }
 
-    @Scheduled(cron = "0/5 * * * * *")
-    public void postOnly() {
-        if (tcpSocketClient != null) {
-            rpcService.request(
-                    tcpSocketClient.idleSession(),
-                    "/game/online",
-                    new JSONObject().fluentPut("sid", 1).fluentPut("onlineSize", RandomUtils.random(30000))
-            );
-        }
-    }
 
 }

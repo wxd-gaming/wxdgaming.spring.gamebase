@@ -9,10 +9,14 @@
         <version>1.0.1</version>
     </parent>
 
-    <artifactId>boot-start</artifactId>
+    <artifactId>game-script</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>wxdgaming.spring.gamebase</groupId>
+            <artifactId>game</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
