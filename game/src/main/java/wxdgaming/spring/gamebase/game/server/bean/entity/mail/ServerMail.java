@@ -3,7 +3,6 @@ package wxdgaming.spring.gamebase.game.server.bean.entity.mail;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -21,24 +20,20 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
-@Table
 @Entity
-public class ServerMail extends RoleMail {
+public class ServerMail extends MailBase {
 
-    @Column(columnDefinition = "int COMMENT '内容参数'")
+    @Column(columnDefinition = "int COMMENT '领取邮件的vip等级限制'")
     private int minVipLv;
-    @Column(columnDefinition = "int COMMENT '内容参数'")
+    @Column(columnDefinition = "int COMMENT '领取邮件的vip等级限制'")
     private int maxVipLv;
 
-    @Column(columnDefinition = "int COMMENT '内容参数'")
+    @Column(columnDefinition = "int COMMENT '领取邮件的等级限制'")
     private int minLv;
-    @Column(columnDefinition = "int COMMENT '内容参数'")
+    @Column(columnDefinition = "int COMMENT '领取邮件的等级限制'")
     private int maxLv;
 
     @Convert(converter = LongListToJsonConverter.class)
-    @Column(columnDefinition = "longtext COMMENT '指定能领取的人员'")
+    @Column(columnDefinition = "longtext COMMENT '指定玩家才可以领取'")
     private List<Long> targetRids = new ArrayList<>();
-    @Convert(converter = LongListToJsonConverter.class)
-    @Column(columnDefinition = "longtext COMMENT '已经领取奖励的人员'")
-    private List<Long> rewardRids = new ArrayList<>();
 }

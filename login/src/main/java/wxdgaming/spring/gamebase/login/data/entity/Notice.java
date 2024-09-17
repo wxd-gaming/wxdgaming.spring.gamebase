@@ -16,9 +16,9 @@ import lombok.experimental.Accessors;
  **/
 @Getter
 @Setter
-@Entity
-@Table()
 @Accessors(chain = true)
+@Table
+@Entity
 public class Notice {
 
     @Id

@@ -44,8 +44,8 @@ public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaReposito
     }
 
     public void put(E e) {
-        ID uid = e.getUid();
-        cache.put(uid, e);
+        // ID uid = e.getUid();
+        // cache.put(uid, e);
     }
 
 

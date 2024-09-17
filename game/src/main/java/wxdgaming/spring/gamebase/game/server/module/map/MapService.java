@@ -18,7 +18,9 @@ import wxdgaming.spring.boot.data.excel.ExcelRepository;
 @Service
 public class MapService implements InitPrint {
 
-    @Autowired ExcelRepository excelRepository;
+    final ExcelRepository excelRepository;
+
+    public MapService(ExcelRepository excelRepository) {this.excelRepository = excelRepository;}
 
     @Start
     public void start(SpringUtil springUtil) {

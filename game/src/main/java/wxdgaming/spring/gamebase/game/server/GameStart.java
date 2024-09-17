@@ -34,7 +34,6 @@ import java.io.File;
 @EnableScheduling
 @SpringBootApplication(
         scanBasePackageClasses = {
-                GameStart.class,
                 CoreScan.class,
                 DataBatisScan.class,
                 DataRedisScan.class,
@@ -42,6 +41,7 @@ import java.io.File;
                 NetScan.class,
                 RpcScan.class,
                 WebScan.class,
+                GameStart.class,
         },
         exclude = {
                 DataSourceAutoConfiguration.class,
