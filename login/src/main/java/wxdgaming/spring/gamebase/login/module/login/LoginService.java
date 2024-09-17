@@ -43,10 +43,7 @@ public class LoginService implements InitPrint {
     @Start
     public void start(SpringUtil springUtil) {
         springUtil
-                .getBeans()
-                .stream()
-                .filter(bean -> bean instanceof ILogin)
-                .map(v -> (ILogin) v)
+                .getBeansOfType(ILogin.class)
                 .forEach(ilogin -> {
                     iLoginHashMap.put(ilogin.channel(), ilogin);
                     log.debug("register login channel {} controller {}", ilogin.channel(), ilogin.getClass().getName());
