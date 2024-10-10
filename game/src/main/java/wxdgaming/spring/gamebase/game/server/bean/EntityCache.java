@@ -23,7 +23,7 @@ public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaReposito
 
     public EntityCache(R r) {
         this.r = r;
-        Cache.<ID, E>builder()
+        cache = Cache.<ID, E>builder()
                 .expireAfterAccess(12, TimeUnit.HOURS)
                 .loader(uid -> r.findById(uid).orElse(null))
                 .heartListener(new Consumer2<ID, E>() {
@@ -44,8 +44,9 @@ public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaReposito
     }
 
     public void put(E e) {
-        // ID uid = e.getUid();
-        // cache.put(uid, e);
+        ID uid = e.getUid();
+        cache.put(uid, e);
+        r.save(e);
     }
 
 

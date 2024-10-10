@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
-import wxdgaming.spring.gamebase.game.server.bean.cache.RoleMailCache;
+import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerMailCache;
 import wxdgaming.spring.gamebase.game.server.bean.cache.ServerMailCache;
 
 /**
@@ -20,7 +20,7 @@ import wxdgaming.spring.gamebase.game.server.bean.cache.ServerMailCache;
 @Service
 public class DataCenter implements InitPrint {
 
-    @Autowired RoleMailCache roleMailCache;
+    @Autowired PlayerMailCache roleMailCache;
     @Autowired ServerMailCache serverMailCache;
 
     @PostConstruct

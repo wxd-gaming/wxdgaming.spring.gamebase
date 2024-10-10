@@ -20,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
-@Entity
+@Entity()
 public class ServerMail extends MailBase {
 
     @Column(columnDefinition = "int COMMENT '领取邮件的vip等级限制'")

@@ -11,5 +11,7 @@
 
     <artifactId>game</artifactId>
 
+    <dependencies>
+    </dependencies>
 
 </project>
