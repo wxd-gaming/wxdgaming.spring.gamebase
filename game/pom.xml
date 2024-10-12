@@ -12,6 +12,11 @@
     <artifactId>game</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>wxdgaming.spring.gamebase</groupId>
+            <artifactId>entity</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>

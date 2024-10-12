@@ -1,4 +1,4 @@
-package wxdgaming.spring.gamebase.game.server.bean.entity.task;
+package wxdgaming.spring.gamebase.entity;
 
 import wxdgaming.spring.boot.core.collection.MapOf;
 import wxdgaming.spring.boot.core.lang.IEnum;
@@ -9,22 +9,25 @@ import java.util.Map;
  * 任务类型
  *
  * @author: wxd-gaming(無心道, 15388152619)
- * @version: 2024-10-10 20:13
+ * @version: 2023-07-31 17:25
  **/
 public enum TaskType implements IEnum {
+
     None(0, "默认值"),
+    Main(1, "主线"),
+    /** 日常任务 */
+    Day(2, "日常"),
+    Branch1(3, "支线"),
+    Branch2(4, "支线"),
+    Branch3(5, "支线"),
+    Branch4(6, "支线"),
+    Guild(7, "公会"),
     ;
 
     private static final Map<Integer, TaskType> static_map = MapOf.asMap(TaskType::getCode, TaskType.values());
 
-    public static TaskType of(int value) {
+    public static TaskType as(int value) {
         return static_map.get(value);
-    }
-
-    public static TaskType ofOrException(int value) {
-        TaskType tmp = static_map.get(value);
-        if (tmp == null) throw new RuntimeException("查找失败 " + value);
-        return tmp;
     }
 
     private final int code;

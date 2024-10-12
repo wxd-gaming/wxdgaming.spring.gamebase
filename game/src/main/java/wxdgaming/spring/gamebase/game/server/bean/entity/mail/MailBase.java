@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.MappedSuperclass;
 import wxdgaming.spring.boot.data.batis.EntityBase;
-import wxdgaming.spring.boot.data.batis.converter.ObjectListToJsonConverter;
+import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class MailBase extends EntityBase<Long> {
     /** 内容 */
     @Column(columnDefinition = "varchar(2048) COMMENT '内容'")
     private String content;
-    @Convert(converter = ObjectListToJsonConverter.class)
+    @Convert(converter = ObjectToJsonStringConverter.class)
     @Column(columnDefinition = "varchar(2048) COMMENT '内容参数'")
     private List<Object> contentParams;
     /** 过期时间 */

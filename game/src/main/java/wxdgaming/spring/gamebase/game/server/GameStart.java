@@ -22,9 +22,9 @@ import wxdgaming.spring.boot.data.redis.DataRedisScan;
 import wxdgaming.spring.boot.net.NetScan;
 import wxdgaming.spring.boot.rpc.RpcScan;
 import wxdgaming.spring.boot.web.WebScan;
+import wxdgaming.spring.gamebase.entity.TaskType;
 import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerCache;
 import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskInfo;
-import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskType;
 import wxdgaming.spring.gamebase.game.server.bean.entity.user.Player;
 import wxdgaming.spring.gamebase.game.server.bean.repository.PlayerJpaRepository;
 

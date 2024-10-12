@@ -1,0 +1,12 @@
+[
+	{"id":1,"itemType":"CURRENCY","name":"钻石","description":"钻石","lv":0,"maxCount":0,"param1":0,"param2":0,"param3":0,"param4":0},
+	{"id":2,"itemType":"CURRENCY","name":"绑定钻石","description":"绑定钻石","lv":0,"maxCount":0,"param1":0,"param2":0,"param3":0,"param4":0},
+	{"id":3,"itemType":"CURRENCY","name":"金币","description":"金币","lv":0,"maxCount":0,"param1":0,"param2":0,"param3":0,"param4":0},
+	{"id":4,"itemType":"CURRENCY","name":"绑定金币","description":"绑定金币","lv":0,"maxCount":0,"param1":0,"param2":0,"param3":0,"param4":0},
+	{"id":10001,"itemType":"EQUIP","name":"武器","description":"武器","lv":1,"maxCount":1,"param1":0,"param2":0,"param3":0,"param4":1,"attr":{"防御":100,"MAXHP":106,"体力":100,"攻击":100}},
+	{"id":10002,"itemType":"EQUIP","name":"武器","description":"武器","lv":2,"maxCount":1,"param1":0,"param2":0,"param3":0,"param4":1,"attr":{"防御":101,"MAXHP":106,"体力":100,"攻击":100}},
+	{"id":10003,"itemType":"EQUIP","name":"武器","description":"武器","lv":3,"maxCount":1,"param1":0,"param2":0,"param3":0,"param4":1,"attr":{"防御":102,"MAXHP":106,"体力":100,"攻击":100}},
+	{"id":10004,"itemType":"EQUIP","name":"武器","description":"武器","lv":4,"maxCount":1,"param1":0,"param2":0,"param3":0,"param4":1,"attr":{"防御":103,"MAXHP":106,"体力":100,"攻击":100}},
+	{"id":10005,"itemType":"EQUIP","name":"武器","description":"武器","lv":5,"maxCount":1,"param1":0,"param2":0,"param3":0,"param4":1,"attr":{"防御":104,"MAXHP":106,"体力":100,"攻击":100}},
+	{"id":10006,"itemType":"EQUIP","name":"武器","description":"武器","lv":6,"maxCount":1,"param1":0,"param2":0,"param3":0,"param4":1,"attr":{"防御":105,"MAXHP":106,"体力":100,"攻击":100}}
+]

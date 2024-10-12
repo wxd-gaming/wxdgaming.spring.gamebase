@@ -2,8 +2,8 @@ import com.alibaba.fastjson.TypeReference;
 import org.junit.Test;
 import wxdgaming.spring.boot.core.collection.Table;
 import wxdgaming.spring.boot.core.json.FastJsonUtil;
+import wxdgaming.spring.gamebase.entity.TaskType;
 import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskInfo;
-import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskType;
 
 public class JsonTest {
 

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.core.lang.ObjectBase;
+import wxdgaming.spring.gamebase.entity.TaskType;
 
 /**
  * 任务详情
@@ -16,7 +17,7 @@ import wxdgaming.spring.boot.core.lang.ObjectBase;
 @Accessors(chain = true)
 public class TaskInfo extends ObjectBase {
 
-    private TaskType type = TaskType.None;
+    private TaskType type = TaskType.Main;
     private int count = 1;
     private int completeCount = 1;
 

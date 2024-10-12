@@ -9,11 +9,11 @@ import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.core.collection.Table;
 import wxdgaming.spring.boot.data.batis.EntityBase;
 import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
+import wxdgaming.spring.gamebase.entity.TaskType;
 import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerMailCache;
 import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerSummaryCache;
 import wxdgaming.spring.gamebase.game.server.bean.entity.mail.PlayerMail;
 import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskInfo;
-import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskType;
 
 /**
  * 角色信息
