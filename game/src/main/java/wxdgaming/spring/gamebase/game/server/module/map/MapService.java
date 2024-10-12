@@ -1,7 +1,6 @@
 package wxdgaming.spring.gamebase.game.server.module.map;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.SpringUtil;

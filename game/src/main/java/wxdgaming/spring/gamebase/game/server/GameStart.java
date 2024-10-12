@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import wxdgaming.spring.boot.core.CoreScan;
 import wxdgaming.spring.boot.core.SpringChildContext;
 import wxdgaming.spring.boot.core.SpringUtil;
+import wxdgaming.spring.boot.core.ann.ReLoad;
 import wxdgaming.spring.boot.core.ann.Start;
 import wxdgaming.spring.boot.core.system.JvmUtil;
 import wxdgaming.spring.boot.core.timer.MyClock;
@@ -58,26 +59,15 @@ public class GameStart {
 
     public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext run = SpringApplication.run(GameStart.class, args);
+
         try {
+            loadScript();
             SpringUtil.getIns().executor(Start.class);
         } catch (Exception e) {
             e.printStackTrace(System.out);
             JvmUtil.halt(1);
         }
 
-        SpringChildContext childContext = run.getBean(SpringChildContext.class);
-
-        File path = new File("game-script.jar");
-        if (path.exists()) {
-            childContext.newChild4Jar(GameStart.class.getClassLoader(), ScriptScan.class, path.getPath());
-        } else {
-            childContext.newChild4JavaCode(
-                    GameStart.class.getClassLoader(),
-                    ScriptScan.class,
-                    "game-script/src/main/java",
-                    "wxdgaming.chargame.server-scripts/src/main/resources"
-            );
-        }
         {
             Player player = new Player();
             player.setUid(1L);
@@ -100,6 +90,26 @@ public class GameStart {
         //                 .fluentPut("channel", "local")
         // );
         // request.subscribe(string -> log.info("登录结果: {}", string));
+    }
+
+    public static void reloadScript() throws Exception {
+        loadScript();
+        SpringUtil.getIns().executor(ReLoad.class);
+    }
+
+    static void loadScript() throws Exception {
+        SpringChildContext childContext = SpringUtil.getIns().getBean(SpringChildContext.class);
+        File path = new File("game-script.jar");
+        if (path.exists()) {
+            childContext.newChild4Jar(GameStart.class.getClassLoader(), ScriptScan.class, path.getPath());
+        } else {
+            childContext.newChild4JavaCode(
+                    GameStart.class.getClassLoader(),
+                    ScriptScan.class,
+                    "game-script/src/main/java",
+                    "wxdgaming.chargame.server-scripts/src/main/resources"
+            );
+        }
     }
 
     @EnableAsync

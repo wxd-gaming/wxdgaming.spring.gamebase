@@ -24,6 +24,7 @@ public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaReposito
     public EntityCache(R r) {
         this.r = r;
         cache = Cache.<ID, E>builder()
+                .cacheName(this.getClass().getName())
                 .expireAfterAccess(12, TimeUnit.HOURS)
                 .loader(uid -> r.findById(uid).orElse(null))
                 .heartListener(new Consumer2<ID, E>() {

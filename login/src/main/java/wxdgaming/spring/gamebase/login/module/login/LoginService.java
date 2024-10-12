@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.SpringUtil;
 import wxdgaming.spring.boot.core.ann.Start;
-import wxdgaming.spring.boot.core.cache.Cache;
 import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.Md5Util;
 import wxdgaming.spring.gamebase.login.data.entity.User;
@@ -15,7 +14,6 @@ import wxdgaming.spring.gamebase.login.data.repository.UserRepository;
 
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 登录服务

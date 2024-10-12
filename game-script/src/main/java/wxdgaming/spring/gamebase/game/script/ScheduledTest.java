@@ -8,14 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wxdgaming.spring.boot.core.InitPrint;
-import wxdgaming.spring.boot.core.SpringChildContext;
 import wxdgaming.spring.boot.core.SpringUtil;
 import wxdgaming.spring.boot.core.lang.RandomUtils;
-import wxdgaming.spring.boot.core.util.StringsUtil;
 import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.boot.net.client.TcpSocketClient;
 import wxdgaming.spring.boot.rpc.RpcService;
@@ -65,7 +62,7 @@ public class ScheduledTest implements InitPrint {
         if (loginClient != null) {
             SocketSession session = loginClient.idleSession();
             if (session == null) {
-                log.info("session null");
+                log.info("login server session null {}", this.hashCode());
                 return;
             }
             rpcService.request(
