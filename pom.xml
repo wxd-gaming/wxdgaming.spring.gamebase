@@ -20,6 +20,7 @@
         <module>gate</module>
         <module>game-script</module>
         <module>gate-script</module>
+        <module>background</module>
     </modules>
 
     <properties>

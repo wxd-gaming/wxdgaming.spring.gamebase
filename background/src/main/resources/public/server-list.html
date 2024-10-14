@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线用户</title>
+
+    <script charset="utf-8" type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script charset="utf-8" type="text/javascript" src="/js/com.wxd.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/style/com.wxd.css"/>
+    <link rel="stylesheet" type="text/css" href="/style/table.css"/>
+
+    <style>
+        html, body {display: block;width: 100%;height: 100%;overflow: hidden;overflow-x: auto;background: rgba(98, 143, 139, 0.31);}
+
+        html, body, div, table, tr, td {margin: 0px;border: 0px;box-sizing: border-box;}
+
+        a:link {color: #0866b4;}
+
+        a:visited { color: #0866b4;}
+
+        label {padding-left: 5px;padding-right: 5px;}
+
+    </style>
+
+    <script>
+
+        function operate(sid, opt) {
+            wxd.loading();
+            let urlQuery = new wxd.Map().loadSearch();
+            urlQuery.put("sid", sid);
+            urlQuery.put("operate", opt);
+            let url = "/server/operate";
+            console.log(urlQuery.toString());
+            wxd.netty.post(url, urlQuery.toString(),
+                function (responseText) {
+                    wxd.message.alert(responseText);
+                    wxd.loading_close();
+                },
+                (errorMsg) => {
+                    wxd.loading_close();
+                    wxd.message.alert("异常：" + errorMsg);
+                },
+                false
+            );
+        }
+
+        function searchName() {
+            wxd.loading();
+            let urlQuery = new wxd.Map().loadSearch();
+            urlQuery.put("search", $("#search").val());
+            let url = "/server/list/platform";
+            console.log(urlQuery.toString());
+            wxd.netty.post(url, urlQuery.toString(),
+                function (responseText) {
+                    $("tbody:first").html("");
+                    var index = 0;
+                    responseText.data.forEach((row) => {
+                        index++;
+                        $("tbody:first").append(createRow(index, row));
+                    });
+                    wxd.message.tips_init_bind(); //初始化
+                    wxd.loading_close();
+                },
+                (errorMsg) => {
+                    wxd.loading_close();
+                    wxd.message.alert("异常：" + errorMsg);
+                },
+                false
+            );
+        }
+
+        function createRow(index, row) {
+            let tr = `
+    <tr>
+            <td style="width: 120px;">
+                <a href="javascript:void(0);" onclick="operate(${row.sid}, 'update');return false;">备服</a>
+                <a href="javascript:void(0);" onclick="operate(${row.sid}, 'restart');return false;">重启</a>
+                <a href="javascript:void(0);" onclick="operate(${row.sid}, 'stop');return false;">停止</a>
+            </td>
+            <td style="width: 58px;">${row.sid}</td>
+            <td style="width: 58px;">${row.mainSid}</td>
+            <td style="width: 120px;">${row.name}</td>
+            <td style="width: 120px;">${row.showName}</td>
+            <td style="width: 120px;">${row.openTime}</td>
+            <td style="width: 120px;">${row.registerUserCount}</td>
+            <td style="width: 120px;">${row.onlineRoleCount}</td>
+            <td style="width: 120px;">${row.activeRoleCount}</td>
+            <td style="width: 120px;">${row.rechargeCount}</td>
+            <td style="width: 80px;">${row.wlan}</td>
+            <td style="width: 80px;">${row.lan}</td>
+            <td style="width: 40px;">${row.port}</td>
+            <td style="width: 62px;">${row.webPort}</td>
+            <td style="width: 120px;">备注</td>
+    </tr>
+`;
+            return tr;
+        }
+
+        $(() => {
+            searchName();
+        });
+
+    </script>
+
+</head>
+
+<body>
+<div id="base" style="padding-left: 15px;">
+
+</div>
+<br>
+<div style="text-align: left;padding-left: 10px;">
+    <label for="search">搜索</label><input id="search" type="text" value="" style="width: 300px;" onkeydown="if (event.keyCode===13)searchName();" placeholder="服务ID或者服务器名字"/>
+    <input type="button" value="搜索" onclick="searchName();">
+</div>
+<div class="tableDom" style="position: absolute;left: 2px;top: 50px;right: 2px;bottom: 0px;padding-right: 10px;border-radius: 0px;overflow: auto;">
+    <table>
+        <thead>
+        <tr>
+            <th style="width: 120px;">操作</th>
+            <th style="width: 58px;">区服ID</th>
+            <th style="width: 58px;">主服ID</th>
+            <th style="width: 120px;">名字</th>
+            <th style="width: 120px;">显示名字</th>
+            <th style="width: 120px;">开服时间</th>
+            <th style="width: 120px;">注册</th>
+            <th style="width: 120px;">在线</th>
+            <th style="width: 120px;">活跃</th>
+            <th style="width: 120px;">充值</th>
+            <th style="width: 80px;">外网IP</th>
+            <th style="width: 80px;">内网IP</th>
+            <th style="width: 40px;">端口</th>
+            <th style="width: 62px;">WEB端口</th>
+            <th style="width: 120px;">备注</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
