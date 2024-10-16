@@ -44,15 +44,15 @@
                     // 遍历键值对
                     let ls = "";
                     for (let row of responseText.data) {
-                        let subs="";
+                        let subs = "";
                         for (const platform of row.platforms) {
-                            subs+=`<a class="J_menuItem" href="/server-list.html?gameId=${row.uid}&platform=${platform}">${platform}</a>`;
+                            subs += `<a class="J_menuItem" href="/server-list.html?gameId=${row.uid}&platform=${platform}" title="GameId=${row.uid}<br/>描述：${row.description}<br/>平台：${platform}">${platform}</a>`;
                         }
                         ls += `
                         <li>
-                            <a href="#">
+                            <a href="#" title="GameId=${row.uid}<br/>描述：${row.description}">
                                 <i class="fa fa-home"></i>
-                                <span class="nav-label">${row.name}</span>
+                                <span class="nav-label">${row.uid}-${row.name}</span>
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="nav nav-second-level">
@@ -64,6 +64,7 @@
                         `;
                     }
                     $("#side-menu").append(ls);
+                    wxd.message.tips_init_bind(); //初始化
                     wxd.loading_close();
                 },
                 function (error) {
@@ -117,8 +118,6 @@
                     <ul class="nav nav-second-level">
                         <li id="side-menu-sub">
                             <a class="J_menuItem" href="index_v1.html">游戏列表</a>
-                            <a class="J_menuItem" href="index_v1.html">平台列表</a>
-                            <a class="J_menuItem" href="index_v1.html">区服列表</a>
                         </li>
                     </ul>
                 </li>

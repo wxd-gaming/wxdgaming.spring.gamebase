@@ -58,9 +58,9 @@ const wxd = {
      * @param execCount 执行次数
      * @returns {Promise<unknown>}
      */
-    delayed: function (action, interval, execCount) {
+    delayed: async function (action, interval, execCount) {
         if (execCount < 1) return;
-        return new Promise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
                 let curExecCount = 0;
                 let intervalTmp = setInterval(() => {
                     try {
@@ -84,6 +84,7 @@ const wxd = {
                 }, interval);
             }
         );
+        await promise;
     },
 
     /** 从 Cookie 获取登录授权 */
