@@ -3,6 +3,7 @@ package push;
 import org.junit.Before;
 import org.junit.Test;
 import wxdgaming.spring.boot.core.threading.ExecutorBuilder;
+import wxdgaming.spring.boot.core.util.StringsUtil;
 import wxdgaming.spring.boot.webclient.HttpClientBuild;
 import wxdgaming.spring.boot.webclient.HttpClientService;
 
@@ -15,6 +16,11 @@ import wxdgaming.spring.boot.webclient.HttpClientService;
 public class PushTest {
 
     HttpClientService httpClientService;
+
+    @Test
+    public void t0() {
+        System.out.println(StringsUtil.getRandomString(32));
+    }
 
     @Before
     public void before() {

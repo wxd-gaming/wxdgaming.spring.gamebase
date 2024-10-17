@@ -29,4 +29,10 @@ public class GameInfo extends EntityBase<Integer> {
     private String description;
     @Column()
     private long updateTime;
+    /** 上报数据用的key */
+    @Column()
+    private String appKey;
+    /** 充值 */
+    @Column()
+    private String rechargeKey;
 }

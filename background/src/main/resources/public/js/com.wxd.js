@@ -620,6 +620,9 @@ const wxd = {
                 contentType: contentType,
                 data: params,
                 async: sync,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('token', 'dddd');
+                },
                 success: function (data) {
                     if (!wxd.isNull(onLoad)) {
                         try {

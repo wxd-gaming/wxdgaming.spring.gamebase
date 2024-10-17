@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wxdgaming.spring.boot.core.util.StringsUtil;
 import wxdgaming.spring.gamebase.background.entity.bean.GameInfo;
 import wxdgaming.spring.gamebase.background.entity.store.GameInfoRepository;
 
@@ -28,7 +29,21 @@ public class GameInfoService {
     @PostConstruct
     public void initialize() {
         List<GameInfo> all = gameInfoRepository.findAll();
-        all.forEach(gameInfo -> gameInfoMap.put(gameInfo.getUid(), gameInfo));
+        all.forEach(gameInfo -> {
+            if (StringsUtil.emptyOrNull(gameInfo.getAppKey())) {
+                gameInfo.setAppKey(StringsUtil.getRandomString(32));
+                save(gameInfo);
+            }
+            if (StringsUtil.emptyOrNull(gameInfo.getRechargeKey())) {
+                gameInfo.setRechargeKey(StringsUtil.getRandomString(32));
+                save(gameInfo);
+            }
+            gameInfoMap.put(gameInfo.getUid(), gameInfo);
+        });
+    }
+
+    public void save(GameInfo gameInfo) {
+        gameInfoRepository.save(gameInfo);
     }
 
     public Collection<GameInfo> list() {
