@@ -10,8 +10,6 @@ import wxdgaming.spring.gamebase.background.entity.store.GameInfoRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * 区服信息服务
@@ -24,7 +22,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class GameInfoService {
 
     @Autowired private GameInfoRepository gameInfoRepository;
-    private final Map<Integer, GameInfo> gameInfoMap = new ConcurrentSkipListMap<>();
 
     @PostConstruct
     public void initialize() {
@@ -38,20 +35,19 @@ public class GameInfoService {
                 gameInfo.setRechargeKey(StringsUtil.getRandomString(32));
                 save(gameInfo);
             }
-            gameInfoMap.put(gameInfo.getUid(), gameInfo);
         });
     }
 
     public void save(GameInfo gameInfo) {
-        gameInfoRepository.save(gameInfo);
+        gameInfoRepository.saveAndFlush(gameInfo);
     }
 
     public Collection<GameInfo> list() {
-        return gameInfoMap.values();
+        return gameInfoRepository.findAll();
     }
 
     public GameInfo get(int uid) {
-        return gameInfoMap.get(uid);
+        return gameInfoRepository.findById(uid).orElse(null);
     }
 
 }

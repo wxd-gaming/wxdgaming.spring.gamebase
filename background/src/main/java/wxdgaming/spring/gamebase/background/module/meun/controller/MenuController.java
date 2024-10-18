@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wxdgaming.spring.boot.core.lang.RunResult;
+import wxdgaming.spring.boot.core.threading.ThreadContext;
+import wxdgaming.spring.gamebase.background.CheckSign;
+import wxdgaming.spring.gamebase.background.entity.bean.Account;
 import wxdgaming.spring.gamebase.background.module.game.GameInfoService;
 import wxdgaming.spring.gamebase.background.module.meun.MenuService;
 import wxdgaming.spring.gamebase.background.module.server.ServerInfoService;
@@ -26,8 +29,10 @@ public class MenuController {
     @Autowired GameInfoService gameInfoService;
     @Autowired ServerInfoService serverInfoService;
 
+    @CheckSign
     @RequestMapping("/list")
     public RunResult list() {
+        Account loginAccount = ThreadContext.context(Account.class);
         List<JSONObject> list = new ArrayList<>();
         gameInfoService.list().forEach(menu -> {
             JSONObject jo = new JSONObject();
@@ -35,7 +40,7 @@ public class MenuController {
             jo.put("name", menu.getName());
             jo.put("icon", menu.getIcon());
             jo.put("description", menu.getDescription());
-            jo.put("platforms", serverInfoService.listPlatforms(menu.getUid()));
+            jo.put("platforms", serverInfoService.listPlatforms(loginAccount, menu.getUid()).orElse(List.of()));
             list.add(jo);
         });
         return RunResult.ok().data(list);

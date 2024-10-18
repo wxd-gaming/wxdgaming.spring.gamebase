@@ -23,7 +23,7 @@ import wxdgaming.spring.boot.data.batis.EntityBase;
         @jakarta.persistence.Index(columnList = "platform"),
         @jakarta.persistence.Index(columnList = "sid"),
 })
-public class ServerInfo extends EntityBase<Integer> {
+public class ServerInfo extends EntityBase<Long> {
 
     /** 游戏id */
     @Column(columnDefinition = "int COMMENT '游戏id'")

@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import wxdgaming.spring.boot.core.LocalShell;
 import wxdgaming.spring.boot.core.format.TemplatePack;
 import wxdgaming.spring.boot.core.lang.RunResult;
+import wxdgaming.spring.boot.core.threading.ThreadContext;
 import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.StringsUtil;
+import wxdgaming.spring.gamebase.background.BackendService;
+import wxdgaming.spring.gamebase.background.CheckSign;
+import wxdgaming.spring.gamebase.background.entity.bean.Account;
 import wxdgaming.spring.gamebase.background.entity.bean.ServerInfo;
 import wxdgaming.spring.gamebase.background.module.game.GameInfoService;
 import wxdgaming.spring.gamebase.background.module.server.ServerInfoService;
@@ -23,10 +27,12 @@ import java.util.stream.Stream;
  * @author: wxd-gaming(無心道, 15388152619)
  * @version: 2024-10-14 13:56
  **/
+@CheckSign
 @RestController
 @RequestMapping("/server")
 public class ServerInfoController {
 
+    @Autowired private BackendService backendService;
     @Autowired private GameInfoService gameInfoService;
     @Autowired private ServerInfoService serverInfoService;
 
@@ -45,7 +51,9 @@ public class ServerInfoController {
                                     @RequestParam(name = "gameId") Integer gameId,
                                     @RequestParam(name = "platform") String platform,
                                     @RequestParam(name = "search", required = false) String search) {
+        Account loginAccount = ThreadContext.context(Account.class);
         Stream<ServerInfo> serverInfoStream = serverInfoService.streamAll(gameId, platform);
+
         if (StringsUtil.notEmptyOrNull(search)) {
             serverInfoStream = serverInfoStream
                     .filter(serverInfo ->
@@ -66,14 +74,13 @@ public class ServerInfoController {
 
         ServerInfo oldServerInfo = serverInfoService.get(serverInfo.getGameId(), serverInfo.getPlatform(), serverInfo.getSid());
         if (oldServerInfo == null) {
-            serverInfo.setUid(((int) serverInfoService.getServerInfoRepository().count()) + 1);
-            serverInfoService.getServerInfoRepository().save(serverInfo);
-            serverInfoService.push(serverInfo);
+            serverInfo.setUid(backendService.getGlobalData().getServerId().newId());
+            serverInfoService.getServerInfoRepository().saveAndFlush(serverInfo);
         } else {
             oldServerInfo.setName(serverInfo.getName());
             oldServerInfo.setShowName(serverInfo.getShowName());
             oldServerInfo.setUpdateTime(serverInfo.getUpdateTime());
-            serverInfoService.getServerInfoRepository().save(oldServerInfo);
+            serverInfoService.getServerInfoRepository().saveAndFlush(oldServerInfo);
         }
 
         return RunResult.ok().data(serverInfoService.list(serverInfo.getGameId()));

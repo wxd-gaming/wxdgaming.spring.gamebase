@@ -3,17 +3,14 @@ package wxdgaming.spring.gamebase.background.module.server;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import wxdgaming.spring.boot.core.collection.concurrent.ConcurrentTable;
 import wxdgaming.spring.boot.core.io.Objects;
+import wxdgaming.spring.gamebase.background.entity.bean.Account;
 import wxdgaming.spring.gamebase.background.entity.bean.ServerInfo;
 import wxdgaming.spring.gamebase.background.entity.store.ServerInfoRepository;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,35 +25,29 @@ import java.util.stream.Stream;
 public class ServerInfoService {
 
     @Autowired private ServerInfoRepository serverInfoRepository;
-    private final ConcurrentTable<Integer, String, Map<Integer, ServerInfo>> serverInfoTable = new ConcurrentTable<>();
 
     @PostConstruct
     public void initialize() {
-        List<ServerInfo> all = serverInfoRepository.findAll();
-        all.forEach(serverInfo -> push(serverInfo));
-    }
-
-    public void push(ServerInfo serverInfo) {
-        serverInfoTable.computeIfAbsent(serverInfo.getGameId(), serverInfo.getPlatform(), l -> new ConcurrentSkipListMap<>())
-                .put(serverInfo.getSid(), serverInfo);
-    }
-
-    public Stream<String> streamPlatforms(int gameId) {
-        Map<String, Map<Integer, ServerInfo>> stringMapMap = serverInfoTable.get(gameId);
-        if (stringMapMap == null)
-            return Stream.of();
-        return stringMapMap.keySet().stream();
-    }
-
-    public Collection<String> listPlatforms(int gameId) {
-        return streamPlatforms(gameId).toList();
     }
 
     public Stream<ServerInfo> streamAll(int gameId) {
-        Map<String, Map<Integer, ServerInfo>> stringMapMap = serverInfoTable.get(gameId);
-        if (stringMapMap == null)
-            return Stream.of();
-        return stringMapMap.values().stream().flatMap(map -> map.values().stream());
+        return serverInfoRepository.findAllByGameId(gameId).stream();
+    }
+
+    public Stream<String> streamPlatforms(Account loginAccount, int gameId) {
+        if (!loginAccount.getGames().contains(gameId)) {
+            return null;
+        }
+
+        Stream<ServerInfo> stringStream = streamAll(gameId);
+        if (!loginAccount.isRoot()) {
+            stringStream = stringStream.filter(gameInfo -> loginAccount.getPlatforms().contains(gameInfo.getPlatform()));
+        }
+        return stringStream.map(ServerInfo::getPlatform);
+    }
+
+    public Optional<Collection<String>> listPlatforms(Account account, int gameId) {
+        return Optional.ofNullable(streamPlatforms(account, gameId)).map(Stream::toList);
     }
 
     public Collection<ServerInfo> list(int gameId) {
@@ -82,13 +73,11 @@ public class ServerInfoService {
     }
 
     public Stream<ServerInfo> streamAll(int gameId, String platform) {
-        Map<String, Map<Integer, ServerInfo>> stringMapMap = serverInfoTable.get(gameId);
-        if (stringMapMap == null)
-            return Stream.of();
-        Map<Integer, ServerInfo> integerServerInfoMap = stringMapMap.get(platform);
-        if (integerServerInfoMap == null)
-            return Stream.of();
-        return integerServerInfoMap.values().stream();
+        ServerInfo serverInfo = new ServerInfo()
+                .setGameId(gameId)
+                .setPlatform(platform);
+        Example<ServerInfo> serverInfoExample = Example.of(serverInfo);
+        return serverInfoRepository.findAll(serverInfoExample).stream();
     }
 
     public Collection<ServerInfo> list(int gameId, String platform) {
@@ -96,10 +85,12 @@ public class ServerInfoService {
     }
 
     public ServerInfo get(int gameId, String platform, int sid) {
-        return serverInfoTable
-                .opt(gameId, platform)
-                .map(v -> v.get(sid))
-                .orElse(null);
+        ServerInfo serverInfo = new ServerInfo()
+                .setGameId(gameId)
+                .setPlatform(platform)
+                .setSid(sid);
+        Example<ServerInfo> serverInfoExample = Example.of(serverInfo);
+        return serverInfoRepository.findOne(serverInfoExample).orElse(null);
     }
 
 }

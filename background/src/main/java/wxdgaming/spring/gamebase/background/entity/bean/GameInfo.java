@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import wxdgaming.spring.boot.data.batis.EntityBase;
+import wxdgaming.spring.boot.data.batis.EntityAutoBase;
 
 /**
  * 游戏信息
@@ -19,9 +19,9 @@ import wxdgaming.spring.boot.data.batis.EntityBase;
 @Accessors(chain = true)
 @Entity
 @Table(indexes = {})
-public class GameInfo extends EntityBase<Integer> {
+public class GameInfo extends EntityAutoBase<Integer> {
 
-    @Column()
+    @Column(columnDefinition = "varchar(32) comment '游戏名字'", nullable = false)
     private String name;
     @Column()
     private String icon;
@@ -30,9 +30,9 @@ public class GameInfo extends EntityBase<Integer> {
     @Column()
     private long updateTime;
     /** 上报数据用的key */
-    @Column()
+    @Column(columnDefinition = "varchar(32) comment 'appkey'", nullable = false)
     private String appKey;
     /** 充值 */
-    @Column()
+    @Column(columnDefinition = "varchar(32) comment 'rechargeKey'", nullable = false)
     private String rechargeKey;
 }
