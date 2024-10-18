@@ -43,6 +43,10 @@
                 function (responseText) {
                     // 遍历键值对
                     let ls = "";
+                    if (responseText.code !== 1) {
+                        wxd.message.alert(responseText.error);
+                        return;
+                    }
                     for (let row of responseText.data) {
                         let subs = "";
                         for (const platform of row.platforms) {
