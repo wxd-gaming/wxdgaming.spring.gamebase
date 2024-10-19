@@ -41,9 +41,7 @@
                     // 遍历键值对
                     let ls = "";
                     if (responseText.code !== 1) {
-                        wxd.message.alert(responseText.error, "提示", "确认", () => {
-                            window.top.location.href = "/login.html";
-                        });
+                        window.top.location.href = "/login.html";
                         return;
                     }
                     for (let row of responseText.data) {

@@ -47,7 +47,7 @@ public class ServerSpiTest extends TestBase {
                                     "sid": %s,
                                     "name": "%s服",
                                     "showName": "%s服",
-                                    "openTime": "",
+                                    "openTime": "2099-01-01 00:00:00",
                                     "maintainTime": "",
                                     "wlan": "",
                                     "lan": "",
