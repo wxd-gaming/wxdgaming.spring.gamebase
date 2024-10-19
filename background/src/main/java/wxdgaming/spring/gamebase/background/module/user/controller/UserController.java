@@ -1,11 +1,14 @@
 package wxdgaming.spring.gamebase.background.module.user.controller;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.io.Objects;
 import wxdgaming.spring.boot.core.lang.RunResult;
+import wxdgaming.spring.boot.core.threading.ThreadContext;
 import wxdgaming.spring.boot.core.util.JwtUtils;
 import wxdgaming.spring.boot.core.util.StringsUtil;
 import wxdgaming.spring.gamebase.background.BackendService;
@@ -27,6 +30,17 @@ public class UserController implements InitPrint {
 
     @Autowired BackendService backendService;
     @Autowired UserService userService;
+
+
+    @ResponseBody
+    @PostMapping(value = "/check")
+    public RunResult check(HttpServletRequest httpServletRequest) {
+        Account loginAccount = ThreadContext.context(Account.class);
+        if (loginAccount != null) {
+            return login(loginAccount);
+        }
+        return RunResult.error("");
+    }
 
     @ResponseBody
     @PostMapping(value = "/login")
@@ -51,6 +65,10 @@ public class UserController implements InitPrint {
             return RunResult.error("密码错误");
         }
 
+        return login(account);
+    }
+
+    RunResult login(Account account) {
         String compact = JwtUtils.createJwt().header().add("type", "account").and()
                 .expiration(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7)))
                 .claim("account", account.getUid().toString())
@@ -59,5 +77,6 @@ public class UserController implements InitPrint {
 
         return RunResult.ok().data(compact);
     }
+
 
 }
