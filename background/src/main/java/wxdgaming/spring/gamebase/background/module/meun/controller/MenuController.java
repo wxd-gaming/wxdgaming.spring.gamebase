@@ -14,6 +14,8 @@ import wxdgaming.spring.gamebase.background.module.server.ServerInfoService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 菜单接口
@@ -40,7 +42,7 @@ public class MenuController {
             jo.put("name", menu.getName());
             jo.put("icon", menu.getIcon());
             jo.put("description", menu.getDescription());
-            jo.put("platforms", serverInfoService.listPlatforms(loginAccount, menu.getUid()).orElse(List.of()));
+            jo.put("platforms", new TreeSet<>(serverInfoService.listPlatforms(loginAccount, menu.getUid()).orElse(List.of())));
             list.add(jo);
         });
         return RunResult.ok().data(list);

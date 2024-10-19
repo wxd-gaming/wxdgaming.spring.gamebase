@@ -1,2 +1,2 @@
 
-rsync -azt ${version} root@${targetIp}:/data/game/server/${sid}
+rsync -azt ${version} root@${targetIp}:/data/game/server/${gameId}-${sid}

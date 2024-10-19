@@ -3,7 +3,6 @@ package wxdgaming.spring.gamebase.background.module.server;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.io.Objects;
 import wxdgaming.spring.gamebase.background.entity.bean.Account;
@@ -35,7 +34,7 @@ public class ServerInfoService {
     }
 
     public Stream<String> streamPlatforms(Account loginAccount, int gameId) {
-        if (!loginAccount.getGames().contains(gameId)) {
+        if (!loginAccount.isRoot() && !loginAccount.getGames().contains(gameId)) {
             return null;
         }
 
@@ -73,11 +72,7 @@ public class ServerInfoService {
     }
 
     public Stream<ServerInfo> streamAll(int gameId, String platform) {
-        ServerInfo serverInfo = new ServerInfo()
-                .setGameId(gameId)
-                .setPlatform(platform);
-        Example<ServerInfo> serverInfoExample = Example.of(serverInfo);
-        return serverInfoRepository.findAll(serverInfoExample).stream();
+        return serverInfoRepository.findAllByGP(gameId, platform).stream();
     }
 
     public Collection<ServerInfo> list(int gameId, String platform) {
@@ -85,12 +80,7 @@ public class ServerInfoService {
     }
 
     public ServerInfo get(int gameId, String platform, int sid) {
-        ServerInfo serverInfo = new ServerInfo()
-                .setGameId(gameId)
-                .setPlatform(platform)
-                .setSid(sid);
-        Example<ServerInfo> serverInfoExample = Example.of(serverInfo);
-        return serverInfoRepository.findOne(serverInfoExample).orElse(null);
+        return serverInfoRepository.findOneGPS(gameId, platform, sid).orElse(null);
     }
 
 }

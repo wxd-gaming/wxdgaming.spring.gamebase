@@ -23,9 +23,19 @@ public class GameSpiTest extends TestBase {
 
     @Test
     public void pushGame() {
+        pushGame("王者传奇");
+        pushGame("金铲铲");
+        pushGame("复古奇迹");
+        pushGame("向僵尸开炮");
+        pushGame("热血大明");
+    }
+
+    public void pushGame(String name) {
+
         String string = httpClientService.doPostJson(
                         "http://localhost:28081/gameinfo/push",
-                        "{\"name\":\"王者传奇\",\"icon\":\"王者传奇.icon\",\"description\":\"复古传奇的王者传奇\"}"
+                        """
+                                {"name":"%s","icon":"%s.icon","description":"%s%s%s%s"}""".formatted(name, name, name, name, name, name)
                 )
                 .addRequestHeader("token", getToken())
                 .request()

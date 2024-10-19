@@ -1196,7 +1196,7 @@ nav.page-tabs .page-tabs-content {float: left}
 
 .dropdown-menu-right {left: auto}
 
-#content-main {height: calc(100% - 45px);overflow: hidden}
+#content-main {height: calc(100% - 42px);overflow: hidden}
 
 .fixed-nav #content-main {height: calc(100% - 80px);overflow: hidden}
 

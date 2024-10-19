@@ -99,14 +99,15 @@ public class ServerInfoController {
         json.put("gameId", gameId);
         json.put("platform", platform);
         json.put("sid", sid);
-        json.put("ip", serverInfo.getLan());
+        json.put("targetIp", serverInfo.getLan());
+        json.put("version", "v10.001");
 
         String outFile = "target/out/shell/" + System.nanoTime() + ".sh";
         templatePack.ftl2File("rsync.ftl", json, outFile);
-        File file = new File(outFile);
-        LocalShell build = LocalShell.build(true, file.getParentFile());
-        build.putCmd("bash " + file.getName());
-        build.exit();
+        // File file = new File(outFile);
+        // LocalShell build = LocalShell.build(true, file.getParentFile());
+        // build.putCmd("bash " + file.getName());
+        // build.exit();
         return RunResult.ok();
     }
 

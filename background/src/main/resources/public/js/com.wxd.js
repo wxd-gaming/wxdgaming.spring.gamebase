@@ -621,7 +621,10 @@ const wxd = {
                 data: params,
                 async: sync,
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('token', 'dddd');
+                    let token = localStorage.getItem("token");
+                    if (wxd.notNull(token)) {
+                        xhr.setRequestHeader('token', token);
+                    }
                 },
                 success: function (data) {
                     if (!wxd.isNull(onLoad)) {

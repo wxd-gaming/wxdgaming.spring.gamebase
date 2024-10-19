@@ -1,6 +1,7 @@
 package push;
 
 import org.junit.Test;
+import wxdgaming.spring.boot.core.lang.RandomUtils;
 
 /**
  * 游戏接口测试
@@ -24,19 +25,28 @@ public class ServerSpiTest extends TestBase {
 
     @Test
     public void pushServer() {
+        for (int i = 1; i <= 5; i++) {
+            pushServer(i, "360");
+            pushServer(i, "yy");
+            pushServer(i, "腾讯");
+            pushServer(i, "华为");
+        }
+    }
 
+    void pushServer(int gameId, String platform) {
         String string = null;
-        for (int i = 0; i < 100; i++) {
+        int random = RandomUtils.random(10, 400);
+        for (int i = 1; i <= random; i++) {
 
             string = httpClientService.doPostJson(
                             "http://localhost:28081/server/push",
                             """
                                     {
-                                    "gameId": 1,
-                                    "platform": "yy",
+                                    "gameId": %s,
+                                    "platform": "%s",
                                     "sid": %s,
-                                    "name": "yy%s服",
-                                    "showName": "yy%s服",
+                                    "name": "%s服",
+                                    "showName": "%s服",
                                     "openTime": "",
                                     "maintainTime": "",
                                     "wlan": "",
@@ -52,7 +62,7 @@ public class ServerSpiTest extends TestBase {
                                     "updateTime": 0,
                                     "createdTime": 0
                                     }
-                                    """.formatted(i + 1, i + 1, i + 1)
+                                    """.formatted(gameId, platform, i, i, i)
                     )
                     .addRequestHeader("token", getToken())
                     .request()
