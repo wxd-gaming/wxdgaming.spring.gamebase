@@ -109,8 +109,8 @@ public class GameInfoController {
     @RequestMapping("/push")
     public RunResult push(HttpServletRequest request,
                           @RequestBody GameInfo gameInfo) {
-        if (gameInfo.getCreatedTime() == 0)
-            gameInfo.setCreatedTime(MyClock.millis());
+        if (StringsUtil.emptyOrNull(gameInfo.getCreatedTime()))
+            gameInfo.setCreatedTime(MyClock.nowString());
         gameInfo.setUpdateTime(MyClock.millis());
         if (gameInfo.getUid() == null || gameInfo.getUid() == 0) {
             gameInfo.setUid(null);

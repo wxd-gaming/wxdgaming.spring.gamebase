@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.core.format.HexId;
 import wxdgaming.spring.boot.data.batis.EntityBase;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 全局数据
  *
@@ -19,7 +21,11 @@ import wxdgaming.spring.boot.data.batis.EntityBase;
 @Entity
 public class GlobalData extends EntityBase<Integer> {
 
-    private transient HexId accountId = new HexId(1);
-    private transient HexId serverId = new HexId(1);
+    private AtomicInteger accountNewId = new AtomicInteger(10000);
+
+    public GlobalData() {
+        this.setUid(1);
+    }
+
 
 }

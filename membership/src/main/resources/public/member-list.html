@@ -138,12 +138,13 @@
             </td>
             <td tips="true" style="width: 58px;">${index}</td>
             <td tips="true" style="width: 160px;">${row.name}</td>
-            <td tips="true" style="width: 180px;">${row.address}</td>
-            <td tips="true" style="width: 120px;">${row.lv}</td>
-            <td tips="true" style="width: 140px;" ondblclick="wxd.copy('appKey: ${row.leader}');wxd.message.notice('复制成功');">${row.leader}</td>
-            <td tips="true" style="width: 140px;" ondblclick="wxd.copy('rechargeKey: ${row.phoneNumber}');wxd.message.notice('复制成功');">${row.phoneNumber}</td>
-            <td tips="true" style="width: 140px;">${row.expTime}</td>
-            <td tips="true" style="min-width: 120px;">${row.description}</td>
+            <td tips="true" style="width: 180px;">${row.phoneNumber}</td>
+            <td tips="true" style="width: 120px;">${row.sex}</td>
+            <td tips="true" style="width: 140px;">${row.age}</td>
+            <td tips="true" style="width: 140px;">${row.points}</td>
+            <td tips="true" style="width: 140px;">${row.money}</td>
+            <td tips="true" style="width: 140px;">${row.totalMoney}</td>
+            <td tips="true" style="min-width: 120px;">${row.sex}</td>
     </tr>
 `;
         }
@@ -162,12 +163,9 @@
 </head>
 
 <body>
-<div id="base" style="padding-left: 15px;">
-
-</div>
 <br>
 <div style="text-align: left;padding-left: 10px;">
-    <label for="search">搜索</label><input id="search" type="text" value="" style="width: 300px;" onkeydown="if (event.keyCode===13)searchName();" placeholder="名字，地址，负责人"/>
+    <label for="search">搜索</label><input id="search" type="text" value="" style="width: 300px;" onkeydown="if (event.keyCode===13)searchName();" placeholder="会员名字，电话"/>
     <input type="button" value="搜索" onclick="searchName();">
 </div>
 <div class="tableDom" style="position: absolute;left: 2px;top: 50px;right: 2px;bottom: 35px;padding-right: 10px;border-radius: 0px;overflow: auto;">
@@ -176,13 +174,14 @@
         <tr>
             <th style="width: 120px;">操作</th>
             <th style="width: 58px;">序号</th>
-            <th style="width: 160px;">门店名字</th>
-            <th style="width: 180px;">门店地址</th>
-            <th style="width: 120px;">门店等级</th>
-            <th style="width: 140px;">门店负责人</th>
-            <th style="width: 140px;">负责人电话</th>
-            <th style="width: 140px;">门店权限到期</th>
-            <th style="min-width: 120px;">门店备注</th>
+            <th style="width: 160px;">会员名字</th>
+            <th style="width: 180px;">会员电话</th>
+            <th style="width: 120px;">性别</th>
+            <th style="width: 140px;">年龄</th>
+            <th style="width: 140px;">积分</th>
+            <th style="width: 140px;">金额</th>
+            <th style="width: 140px;">累计</th>
+            <th style="min-width: 120px;">备注</th>
         </tr>
         </thead>
         <tbody>

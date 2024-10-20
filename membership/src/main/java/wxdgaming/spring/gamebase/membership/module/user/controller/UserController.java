@@ -9,11 +9,14 @@ import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.core.threading.ThreadContext;
 import wxdgaming.spring.boot.core.util.JwtUtils;
 import wxdgaming.spring.boot.core.util.StringsUtil;
+import wxdgaming.spring.gamebase.membership.CheckSign;
 import wxdgaming.spring.gamebase.membership.MembershipService;
 import wxdgaming.spring.gamebase.membership.entity.bean.Account;
+import wxdgaming.spring.gamebase.membership.entity.store.AccountRepository;
 import wxdgaming.spring.gamebase.membership.module.user.UserService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,7 +31,19 @@ public class UserController implements InitPrint {
 
     @Autowired MembershipService membershipService;
     @Autowired UserService userService;
+    @Autowired AccountRepository accountRepository;
 
+    @CheckSign(isRoot = true)
+    @RequestMapping("/list")
+    public RunResult list(HttpServletRequest request, @RequestParam(name = "search", required = false) String search) {
+        List<Account> list = accountRepository.findAll().stream()
+                .filter(account ->
+                        account.getName().contains(search)
+                        || account.getMobile().contains(search)
+                )
+                .toList();
+        return RunResult.ok().data(list);
+    }
 
     @ResponseBody
     @PostMapping(value = "/check")

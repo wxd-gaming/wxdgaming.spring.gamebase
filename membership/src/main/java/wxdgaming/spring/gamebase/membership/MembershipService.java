@@ -2,10 +2,15 @@ package wxdgaming.spring.gamebase.membership;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.util.Md5Util;
 import wxdgaming.spring.gamebase.membership.entity.bean.GlobalData;
+import wxdgaming.spring.gamebase.membership.entity.store.GlobalRepository;
+
+import java.io.Closeable;
+import java.util.Optional;
 
 /**
  * 后台服务中心
@@ -15,15 +20,33 @@ import wxdgaming.spring.gamebase.membership.entity.bean.GlobalData;
  **/
 @Getter
 @Service
-public class MembershipService implements InitPrint {
+public class MembershipService implements InitPrint, AutoCloseable, Closeable {
 
+    @Autowired GlobalRepository globalRepository;
     private GlobalData globalData;
 
-    private static final String TAG = "BackendServicegewhgxfsodifjaweitnasf24352345";
+    private static final String TAG = "B975C8FC276637AAF4EA6B9C04FE02BB";
 
     @PostConstruct
     public void initialize() {
-        globalData = new GlobalData();
+        Optional<GlobalData> byId = globalRepository.findById(1);
+        byId.ifPresentOrElse(
+                find -> {
+                    globalData = find;
+                },
+                () -> {
+                    globalData = new GlobalData();
+                    saveAndFlush();
+                }
+        );
+    }
+
+    public void saveAndFlush() {
+        globalRepository.saveAndFlush(globalData);
+    }
+
+    @Override public void close() {
+        saveAndFlush();
     }
 
     public String password(long uid, String account, String pwd) {

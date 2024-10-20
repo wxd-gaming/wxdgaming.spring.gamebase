@@ -45,10 +45,6 @@
                         return;
                     }
                     for (let row of responseText.data) {
-                        let subs = "";
-                        for (const platform of row.platforms) {
-                            subs += `<a class="J_menuItem" href="/server-list.html?gameId=${row.uid}&platform=${platform}" title="GameId=${row.uid}<br/>描述：${row.description}<br/>平台：${platform}">${row.name}-${platform}</a>`;
-                        }
                         ls += `
                         <li>
                             <a href="#" title="GameId=${row.uid}<br/>描述：${row.description}">
@@ -58,7 +54,11 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li id="side-menu-sub-${row.uid}">
-                                    ${subs}
+                                    <a class="J_menuItem" href="stores-list.html">会员列表</a>
+                                    <a class="J_menuItem" href="stores-list.html">员工列表</a>
+                                    <a class="J_menuItem" href="stores-list.html">消费记录</a>
+                                    <a class="J_menuItem" href="stores-list.html">充值记录</a>
+                                    <a class="J_menuItem" href="stores-list.html">库存记录</a>
                                 </li>
                             </ul>
                         </li>
@@ -118,7 +118,8 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li id="side-menu-sub">
-                            <a class="J_menuItem" href="game-list.html">游戏列表</a>
+                            <a class="J_menuItem" href="stores-list.html">门店列表</a>
+                            <a class="J_menuItem" href="account-list.html">账号列表</a>
                         </li>
                     </ul>
                 </li>

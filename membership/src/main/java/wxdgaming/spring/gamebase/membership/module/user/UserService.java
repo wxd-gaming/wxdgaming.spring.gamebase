@@ -1,11 +1,9 @@
 package wxdgaming.spring.gamebase.membership.module.user;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
-import wxdgaming.spring.gamebase.membership.MembershipService;
 import wxdgaming.spring.gamebase.membership.entity.bean.Account;
 import wxdgaming.spring.gamebase.membership.entity.store.AccountRepository;
 
@@ -19,30 +17,8 @@ import wxdgaming.spring.gamebase.membership.entity.store.AccountRepository;
 @Service
 public class UserService implements InitPrint {
 
-    @Autowired private MembershipService backendService;
     @Autowired private AccountRepository accountRepository;
 
-    @PostConstruct
-    public void initialize() {
-        String wxdgaming = "wxdgaming";
-        if (!exists(wxdgaming)) {
-            Account root = new Account().setName(wxdgaming);
-            root.setUid(backendService.getGlobalData().getAccountId().newId());
-            String password = "87FE6B";// StringsUtil.randomUuid16("", 6);
-            root
-                    .setNick("超级管理员")
-                    .setPassword(backendService.password(root.getUid(), root.getName(), password))
-                    .setRoot(true)
-                    .setRoot2(true)
-                    .setRoot3(true)
-                    .setEmail("root@localhost")
-                    .setMobile("12345678901")
-                    .setCreatedTime(System.currentTimeMillis())
-            ;
-            accountRepository.saveAndFlush(root);
-            log.warn("pwd: {}", password);
-        }
-    }
 
     public boolean exists(String name) {
         return accountRepository.existsByName(name.trim().toLowerCase());

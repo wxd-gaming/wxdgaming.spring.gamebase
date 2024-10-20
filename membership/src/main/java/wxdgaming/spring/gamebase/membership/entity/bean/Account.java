@@ -1,12 +1,11 @@
 package wxdgaming.spring.gamebase.membership.entity.bean;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.data.batis.EntityBase;
+import wxdgaming.spring.boot.data.batis.EntityString;
 import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
 
 import java.util.HashSet;
@@ -21,11 +20,19 @@ import java.util.HashSet;
 @Setter
 @Accessors(chain = true)
 @Entity()
-public class Account extends EntityBase<Long> {
+@Table(indexes =
+        {@Index(columnList = "forAccountId"), @Index(columnList = "name"), @Index(columnList = "name2")},
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "name2"})
+)
+public class Account extends EntityString<Integer> {
 
+    private int forAccountId = 0;
     /** 账号 */
-    @Column(columnDefinition = "varchar(64) comment '账号'", nullable = false, unique = true)
+    @Column(columnDefinition = "varchar(64) comment '账号'", nullable = false)
     private String name;
+    /** 账号 */
+    @Column(columnDefinition = "varchar(64) comment '子账号'", nullable = false)
+    private String name2;
     /** 用于页面显示的名字 */
     @Column(columnDefinition = "varchar(64) comment '显示的名称'", nullable = false)
     private String nick;
@@ -47,6 +54,8 @@ public class Account extends EntityBase<Long> {
     /** 是否root账号 */
     @Column(columnDefinition = "varchar(64) comment '超级账号'", nullable = false)
     private boolean root3;
+    @Column(columnDefinition = "varchar(1024) comment '描述'")
+    private String description = "";
 
     /** 账号能查看的游戏列表，授权 */
     @Convert(converter = ObjectToJsonStringConverter.class)

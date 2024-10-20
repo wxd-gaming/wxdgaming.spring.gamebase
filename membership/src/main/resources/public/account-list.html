@@ -59,7 +59,7 @@
             wxd.loading();
             let urlQuery = new wxd.Map().loadSearch();
             urlQuery.put("search", $("#search").val());
-            let url = "/stores/list";
+            let url = "/account/list";
             console.log(urlQuery.toString());
             wxd.netty.post(url, urlQuery.toString(),
                 function (responseText) {
@@ -137,12 +137,11 @@
                 <a href="javascript:void(0);" onclick="operate(${row.uid}, 'recharge');return false;" title="更新 RechargeKey">编辑</a>
             </td>
             <td tips="true" style="width: 58px;">${index}</td>
-            <td tips="true" style="width: 160px;">${row.name}</td>
-            <td tips="true" style="width: 180px;">${row.address}</td>
-            <td tips="true" style="width: 120px;">${row.lv}</td>
-            <td tips="true" style="width: 140px;" ondblclick="wxd.copy('appKey: ${row.leader}');wxd.message.notice('复制成功');">${row.leader}</td>
-            <td tips="true" style="width: 140px;" ondblclick="wxd.copy('rechargeKey: ${row.phoneNumber}');wxd.message.notice('复制成功');">${row.phoneNumber}</td>
-            <td tips="true" style="width: 140px;">${row.expTime}</td>
+            <td tips="true" style="">${row.name}</td>
+            <td tips="true" style="">${row.nick}</td>
+            <td tips="true" style="">${row.mobile}</td>
+            <td tips="true" style="">${row.email}</td>
+            <td tips="true" style="">${row.root}</td>
             <td tips="true" style="min-width: 120px;">${row.description}</td>
     </tr>
 `;
@@ -176,12 +175,11 @@
         <tr>
             <th style="width: 120px;">操作</th>
             <th style="width: 58px;">序号</th>
-            <th style="width: 160px;">门店名字</th>
-            <th style="width: 180px;">门店地址</th>
-            <th style="width: 120px;">门店等级</th>
-            <th style="width: 140px;">门店负责人</th>
-            <th style="width: 140px;">负责人电话</th>
-            <th style="width: 140px;">门店权限到期</th>
+            <th style="">账号</th>
+            <th style="">显示的名称</th>
+            <th style="">电话</th>
+            <th style="">邮箱地址</th>
+            <th style="">管理员</th>
             <th style="min-width: 120px;">门店备注</th>
         </tr>
         </thead>
