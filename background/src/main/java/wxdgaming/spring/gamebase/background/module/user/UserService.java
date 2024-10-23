@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
+import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.gamebase.background.BackendService;
 import wxdgaming.spring.gamebase.background.entity.bean.Account;
 import wxdgaming.spring.gamebase.background.entity.store.AccountRepository;
@@ -37,7 +38,7 @@ public class UserService implements InitPrint {
                     .setRoot3(true)
                     .setEmail("root@localhost")
                     .setMobile("12345678901")
-                    .setCreatedTime(System.currentTimeMillis())
+                    .setCreatedTime(MyClock.second())
             ;
             accountRepository.saveAndFlush(root);
             log.warn("pwd: {}", password);

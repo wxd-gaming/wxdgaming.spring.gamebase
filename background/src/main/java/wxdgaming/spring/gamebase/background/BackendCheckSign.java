@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.core.threading.ThreadContext;
@@ -28,7 +27,7 @@ import wxdgaming.spring.gamebase.background.entity.store.AccountRepository;
  **/
 @Service
 @RequestMapping("/**")
-public class BackendCheckSign implements BaseFilter {
+public class BackendCheckSign extends BaseFilter {
 
     @Autowired AccountRepository accountRepository;
     @Autowired ResponseService responseService;
@@ -98,10 +97,9 @@ public class BackendCheckSign implements BaseFilter {
         return true;
     }
 
-    @Override public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        BaseFilter.super.postHandle(request, response, handler, modelAndView);
+    @Override public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        super.afterCompletion(request, response, handler, ex);
         /*函数调用完成后清理线程变量*/
         ThreadContext.cleanup();
     }
-
 }

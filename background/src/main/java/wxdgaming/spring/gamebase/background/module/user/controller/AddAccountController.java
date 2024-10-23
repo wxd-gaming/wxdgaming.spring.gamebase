@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wxdgaming.spring.boot.core.io.Objects;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.core.threading.ThreadContext;
+import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.StringsUtil;
 import wxdgaming.spring.gamebase.background.BackendService;
 import wxdgaming.spring.gamebase.background.CheckSign;
@@ -71,7 +72,7 @@ public class AddAccountController {
         }
         /*md5加密*/
         account.setPassword(backendService.password(account.getUid(), account.getName(), account.getPassword()));
-        account.setCreatedTime(System.currentTimeMillis());
+        account.setCreatedTime(MyClock.second());
         accountRepository.saveAndFlush(account);
 
         return RunResult.ok();

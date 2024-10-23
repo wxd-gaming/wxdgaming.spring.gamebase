@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import wxdgaming.spring.boot.core.threading.ThreadContext;
 import wxdgaming.spring.boot.web.BaseFilter;
@@ -18,7 +17,7 @@ import wxdgaming.spring.gamebase.game.server.bean.entity.user.Player;
  **/
 @Service
 @RequestMapping("/game/**")
-public class GameServerCheckSign implements BaseFilter {
+public class GameServerCheckSign extends BaseFilter {
 
     @Override public void filter(InterceptorRegistration registration) {
 
@@ -32,8 +31,8 @@ public class GameServerCheckSign implements BaseFilter {
         return true;
     }
 
-    @Override public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        BaseFilter.super.postHandle(request, response, handler, modelAndView);
+    @Override public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        super.afterCompletion(request, response, handler, ex);
         /*函数调用完成后清理线程变量*/
         ThreadContext.cleanup();
     }
