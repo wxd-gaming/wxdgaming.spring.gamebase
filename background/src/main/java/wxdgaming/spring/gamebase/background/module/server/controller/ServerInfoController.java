@@ -69,7 +69,7 @@ public class ServerInfoController {
     @ResponseBody
     public RunResult push(HttpServletRequest request, @RequestBody ServerInfo serverInfo) {
         if (serverInfo.getCreatedTime() == 0)
-            serverInfo.setCreatedTime(MyClock.second());
+            serverInfo.setCreatedTime(MyClock.millis());
         serverInfo.setUpdateTime(MyClock.millis());
 
         ServerInfo oldServerInfo = serverInfoService.get(serverInfo.getGameId(), serverInfo.getPlatform(), serverInfo.getSid());

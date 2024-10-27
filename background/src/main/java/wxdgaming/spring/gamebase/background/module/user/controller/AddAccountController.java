@@ -72,7 +72,7 @@ public class AddAccountController {
         }
         /*md5加密*/
         account.setPassword(backendService.password(account.getUid(), account.getName(), account.getPassword()));
-        account.setCreatedTime(MyClock.second());
+        account.setCreatedTime(MyClock.millis());
         accountRepository.saveAndFlush(account);
 
         return RunResult.ok();

@@ -38,7 +38,7 @@ public class UserService implements InitPrint {
                     .setRoot3(true)
                     .setEmail("root@localhost")
                     .setMobile("12345678901")
-                    .setCreatedTime(MyClock.second())
+                    .setCreatedTime(MyClock.millis())
             ;
             accountRepository.saveAndFlush(root);
             log.warn("pwd: {}", password);

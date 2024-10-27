@@ -71,7 +71,7 @@ public class GameStart {
         {
             Player player = new Player();
             player.setUid(1L);
-            player.setCreatedTime(MyClock.second());
+            player.setCreatedTime(MyClock.millis());
             player.getTasks().put(TaskType.None, 1, new TaskInfo());
             PlayerCache.getIns().put(player);
 
