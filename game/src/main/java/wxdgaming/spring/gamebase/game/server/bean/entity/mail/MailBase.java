@@ -3,6 +3,9 @@ package wxdgaming.spring.gamebase.game.server.bean.entity.mail;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.data.batis.EntityBase;
 import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
 
@@ -14,6 +17,9 @@ import java.util.List;
  * @author: wxd-gaming(無心道, 15388152619)
  * @version: 2024-09-17 10:46
  **/
+@Getter
+@Setter
+@Accessors(chain = true)
 @MappedSuperclass
 public class MailBase extends EntityBase<Long> {
     /** 发送者 */

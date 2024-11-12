@@ -22,6 +22,7 @@ public class UserController {
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) {
         response.addCookie(new Cookie(HttpHeaderNames.AUTHORIZATION.toString(), "wxd"));
+
     }
 
 }

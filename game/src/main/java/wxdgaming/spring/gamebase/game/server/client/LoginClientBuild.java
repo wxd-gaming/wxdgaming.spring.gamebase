@@ -27,7 +27,7 @@ import wxdgaming.spring.boot.rpc.RpcService;
 public class LoginClientBuild extends SocketClientBuilder.Config {
 
     @Autowired RpcService rpcService;
-    TcpSocketClient loginClient = null;
+    TcpSocketClient loginSocket = null;
 
     @Bean(name = "loginClient")
     @ConditionalOnProperty(prefix = "socket.client.login", name = "port")
@@ -37,7 +37,7 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
                                        ClientMessageDecode clientMessageDecode,
                                        ClientMessageEncode clientMessageEncode) {
 
-        loginClient = new TcpSocketClient(
+        loginSocket = new TcpSocketClient(
                 defaultExecutor,
                 bootstrapBuilder,
                 socketClientBuilder,
@@ -45,7 +45,7 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
                 clientMessageDecode,
                 clientMessageEncode
         );
-        return loginClient;
+        return loginSocket;
     }
 
 
