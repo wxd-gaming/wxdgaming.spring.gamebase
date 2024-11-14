@@ -36,7 +36,6 @@ public class ScheduledTest implements InitPrint {
     @Autowired private SpringUtil springUtil;
 
     public ScheduledTest() {
-        System.out.println("==================================================================================");
     }
 
 
@@ -47,7 +46,6 @@ public class ScheduledTest implements InitPrint {
 
     @Bean
     public String loginKey() {
-        System.out.println("------------------------------------------------------");
         return "dddddddddddddddddd";
     }
 
@@ -62,7 +60,7 @@ public class ScheduledTest implements InitPrint {
         if (loginClient != null) {
             SocketSession session = loginClient.idleSession();
             if (session == null) {
-                log.info("login server session null {}", this.hashCode());
+                log.info("login rpc session null {}", this.hashCode());
                 return;
             }
             rpcService.request(

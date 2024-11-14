@@ -1,12 +1,10 @@
 package wxdgaming.spring.gamebase.game.script.module.user;
 
-import io.netty.handler.codec.http.HttpHeaderNames;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import wxdgaming.spring.boot.net.SocketSession;
+import wxdgaming.spring.boot.rpc.RPC;
 
 /**
  * 用户接口
@@ -18,10 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController {
 
-    @ResponseBody
-    @RequestMapping("/login")
-    public void login(HttpServletRequest request, HttpServletResponse response) {
-        response.addCookie(new Cookie(HttpHeaderNames.AUTHORIZATION.toString(), "wxd"));
+    @RPC("/login")
+    public void login(SocketSession session, JSONObject jsonObject) {
 
     }
 

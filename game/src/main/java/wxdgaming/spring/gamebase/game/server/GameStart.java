@@ -27,6 +27,7 @@ import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerCache;
 import wxdgaming.spring.gamebase.game.server.bean.entity.task.TaskInfo;
 import wxdgaming.spring.gamebase.game.server.bean.entity.user.Player;
 import wxdgaming.spring.gamebase.game.server.bean.repository.PlayerJpaRepository;
+import wxdgaming.spring.gamebase.game.server.drive.DriveScan;
 
 import java.io.File;
 import java.util.Optional;
@@ -41,6 +42,7 @@ import java.util.Optional;
 @EnableScheduling
 @SpringBootApplication(
         scanBasePackageClasses = {
+                DriveScan.class,
                 CoreScan.class,
                 DataBatisScan.class,
                 DataRedisScan.class,

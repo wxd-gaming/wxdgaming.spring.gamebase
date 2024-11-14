@@ -19,7 +19,9 @@ public class MapService implements InitPrint {
 
     final ExcelRepository excelRepository;
 
-    public MapService(ExcelRepository excelRepository) {this.excelRepository = excelRepository;}
+    public MapService(ExcelRepository excelRepository) {
+        this.excelRepository = excelRepository;
+    }
 
     @Start
     public void start(SpringUtil springUtil) {

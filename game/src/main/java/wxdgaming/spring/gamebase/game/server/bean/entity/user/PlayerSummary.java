@@ -20,6 +20,8 @@ import wxdgaming.spring.boot.data.batis.EntityBase;
 public class PlayerSummary extends EntityBase<Long> {
 
     @Column()
+    private String userName;
+    @Column()
     private String name;
     @Column()
     private long exp;
@@ -30,4 +32,11 @@ public class PlayerSummary extends EntityBase<Long> {
     @Column()
     private int vipLv;
 
+    @Override public String toString() {
+        return "Player{" +
+               "uid=" + getUid() +
+               ", name='" + name + '\'' +
+               ", lv=" + lv +
+               '}';
+    }
 }

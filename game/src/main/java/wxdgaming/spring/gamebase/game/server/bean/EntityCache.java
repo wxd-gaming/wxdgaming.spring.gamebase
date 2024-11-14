@@ -40,8 +40,8 @@ public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaReposito
                 .build();
     }
 
-    public E get(ID id) {
-        return cache.get(id);
+    public E getIfPresent(ID id) {
+        return cache.getIfPresent(id);
     }
 
     public void put(E e) {
