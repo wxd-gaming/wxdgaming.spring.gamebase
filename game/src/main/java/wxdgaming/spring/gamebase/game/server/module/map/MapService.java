@@ -5,7 +5,13 @@ import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.SpringUtil;
 import wxdgaming.spring.boot.core.ann.Start;
-import wxdgaming.spring.boot.data.excel.ExcelRepository;
+import wxdgaming.spring.boot.data.excel.store.DataRepository;
+import wxdgaming.spring.gamebase.entity.cfg.QMapTable;
+import wxdgaming.spring.gamebase.entity.cfg.bean.QMap;
+import wxdgaming.spring.gamebase.game.server.bean.MapInfo;
+import wxdgaming.spring.gamebase.game.server.module.datacache.DataCenter;
+
+import java.util.List;
 
 /**
  * 地图服务
@@ -17,16 +23,25 @@ import wxdgaming.spring.boot.data.excel.ExcelRepository;
 @Service
 public class MapService implements InitPrint {
 
-    final ExcelRepository excelRepository;
+    final DataRepository dataRepository;
+    final DataCenter dataCenter;
 
-    public MapService(ExcelRepository excelRepository) {
-        this.excelRepository = excelRepository;
+    public MapService(DataRepository dataRepository, DataCenter dataCenter) {
+        this.dataRepository = dataRepository;
+        this.dataCenter = dataCenter;
     }
 
     @Start
     public void start(SpringUtil springUtil) {
-        String s = excelRepository.tableData("mapcfg").flatMap(t -> t.row(10001)).map(r -> r.getString("name")).orElse("null");
-        log.info(s);
+        QMapTable mapTable = this.dataRepository.dataTable(QMapTable.class);
+        List<QMap> dataList = mapTable.getDataList();
+        for (QMap cfg : dataList) {
+            MapInfo mapInfo = new MapInfo();
+            mapInfo.setUid(System.nanoTime());
+            mapInfo.setCfgId(cfg.getId());
+            log.info("初始化地图：{}", mapInfo);
+            dataCenter.getMapInfoHashMap().put(mapInfo.getUid(), mapInfo);
+        }
     }
 
 }

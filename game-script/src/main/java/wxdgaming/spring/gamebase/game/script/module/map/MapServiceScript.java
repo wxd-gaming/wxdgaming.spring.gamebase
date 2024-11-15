@@ -32,15 +32,7 @@ public class MapServiceScript implements InitPrint {
 
     @PostConstruct
     public void initMap() {
-        QMapTable mapTable = this.dataRepository.dataTable(QMapTable.class);
-        List<QMap> dataList = mapTable.getDataList();
-        for (QMap cfg : dataList) {
-            MapInfo mapInfo = new MapInfo();
-            mapInfo.setUid(System.nanoTime());
-            mapInfo.setCfgId(cfg.getId());
-            log.info("初始化地图：{}", mapInfo);
-            dataCenter.getMapInfoHashMap().put(mapInfo.getUid(), mapInfo);
-        }
+
     }
 
 }

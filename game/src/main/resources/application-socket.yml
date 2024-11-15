@@ -1,11 +1,12 @@
 socket:
   debugLogger: false
   printLogger: true
+  rpc-token: sgwg4trsdfsdfsfsdghw34t2345
   server:
     bossThreadSize: 2 #线程池的线程数量，共享
     workerThreadSize: 10 #线程池的线程数量，共享
     config:
-      port: 28001
+      port: 22001
       idleTimeout: 30 # 单位秒
       enable-web-socket: true
       web-socket-prefix: "/wxd-gaming"
