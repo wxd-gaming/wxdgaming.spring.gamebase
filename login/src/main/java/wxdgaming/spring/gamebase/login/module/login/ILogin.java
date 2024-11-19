@@ -1,10 +1,12 @@
 package wxdgaming.spring.gamebase.login.module.login;
 
 import com.alibaba.fastjson.JSONObject;
+import io.jsonwebtoken.JwtBuilder;
 import wxdgaming.spring.boot.core.LogbackUtil;
+import wxdgaming.spring.boot.core.SpringUtil;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.core.timer.MyClock;
-import wxdgaming.spring.boot.core.util.Md5Util;
+import wxdgaming.spring.boot.core.util.JwtUtils;
 import wxdgaming.spring.gamebase.login.data.entity.User;
 
 /**
@@ -35,21 +37,18 @@ public interface ILogin {
     default RunResult loginAfter(User user) {
         long time = MyClock.millis();
         /*生成前端和游戏服或者网关交换时需要的密钥*/
-        String ret_token = Md5Util.md5DigestEncode(
-                user.getOpenId(),
-                user.getAccount(),
-                String.valueOf(time),
-                channel().name(),
-                LoginService.PRIVATE_TOKEN
-        );
+        JwtBuilder jwtBuilder = JwtUtils.createJwt(SpringUtil.getIns().getBean(LoginService.class).getPRIVATE_TOKEN());
+        String compact = jwtBuilder
+                .claim("userId", user.getOpenId())
+                .claim("account", user.getAccount())
+                .claim("time", time)
+                .claim("channel", user.getChannel())
+                .claim("channelName", channel().name())
+                .compact();
         user.setLoginTime(MyClock.millis());
         user.setLoginCount(user.getLoginCount() + 1);
         LogbackUtil.logger().info("登录成功: {}", user);
-        return RunResult.ok()
-                .fluentPut("openId", user.getOpenId())
-                .fluentPut("channel", user.getChannel())
-                .fluentPut("time", time)
-                .fluentPut("token", ret_token);
+        return RunResult.ok().data(compact);
     }
 
 }

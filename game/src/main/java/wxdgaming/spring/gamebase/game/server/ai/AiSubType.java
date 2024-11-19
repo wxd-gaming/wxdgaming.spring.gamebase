@@ -23,11 +23,11 @@ public enum AiSubType {
     /** 死亡 */
     DIE(AiType.DIE),
     /** 死亡后不允许复活 */
-    DIENOTREVIVE(AiType.DIE),
+    DIE_NOT_REVIVE(AiType.DIE),
     /** 复活 */
     REVIVE(AiType.REVIVE),
     ;
-    private AiType aiType;
+    private final AiType aiType;
 
     AiSubType(AiType aiType) {
         this.aiType = aiType;

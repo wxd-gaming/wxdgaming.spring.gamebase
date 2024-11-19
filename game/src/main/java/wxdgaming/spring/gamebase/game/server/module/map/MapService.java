@@ -26,6 +26,7 @@ public class MapService implements InitPrint {
     final DataRepository dataRepository;
     final DataCenter dataCenter;
 
+
     public MapService(DataRepository dataRepository, DataCenter dataCenter) {
         this.dataRepository = dataRepository;
         this.dataCenter = dataCenter;
@@ -41,6 +42,7 @@ public class MapService implements InitPrint {
             mapInfo.setCfgId(cfg.getId());
             log.info("初始化地图：{}", mapInfo);
             dataCenter.getMapInfoHashMap().put(mapInfo.getUid(), mapInfo);
+            mapInfo.initTick();
         }
     }
 

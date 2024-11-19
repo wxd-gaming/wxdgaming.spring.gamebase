@@ -48,6 +48,10 @@ public class DataCenter implements InitPrint {
         }
     }
 
+    public QueueEvent getQueueEvent(String queueName) {
+        return queueEvents.get(queueName);
+    }
+
     public void pushEvent(String queueName, Runnable runnable) {
         queueEvents.get(queueName).execute(runnable);
     }

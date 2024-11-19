@@ -3,6 +3,7 @@ package wxdgaming.spring.gamebase.login.module.login;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.SpringUtil;
@@ -26,7 +27,8 @@ import java.util.Optional;
 @Service
 public class LoginService implements InitPrint {
 
-    public static final String PRIVATE_TOKEN = "ddddd";
+    @Value("${login-jwt-Secret-Key}")
+    private String PRIVATE_TOKEN = "ddddd";
     // final Cache<String, User> userCache;
     final UserRepository userRepository;
     final HashMap<LoginChannel, ILogin> iLoginHashMap = new HashMap<>();

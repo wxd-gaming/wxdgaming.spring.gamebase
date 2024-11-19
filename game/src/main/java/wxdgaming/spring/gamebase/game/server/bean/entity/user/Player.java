@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.core.collection.Table;
 import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
+import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.gamebase.entity.TaskType;
 import wxdgaming.spring.gamebase.game.server.bean.MapObject;
 import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerMailCache;
@@ -31,6 +32,8 @@ public class Player extends MapObject {
     @Column(columnDefinition = "LONGTEXT COMMENT '任务数据'")
     private Table<TaskType, Integer, TaskInfo> tasks = new Table<>();
 
+    private transient SocketSession session;
+
     public Player() {
         super(ObjectType.Player);
     }
@@ -41,6 +44,10 @@ public class Player extends MapObject {
 
     public PlayerMail playerMail() {
         return PlayerMailCache.getIns().getIfPresent(this.getUid());
+    }
+
+    public void writeAndFlush(String jsonData) {
+        session.writeAndFlush(jsonData);
     }
 
     @Override public String toString() {

@@ -1,16 +1,10 @@
 package wxdgaming.spring.gamebase.game.script.module.map;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.data.excel.store.DataRepository;
-import wxdgaming.spring.gamebase.entity.cfg.QMapTable;
-import wxdgaming.spring.gamebase.entity.cfg.bean.QMap;
-import wxdgaming.spring.gamebase.game.server.bean.MapInfo;
 import wxdgaming.spring.gamebase.game.server.module.datacache.DataCenter;
-
-import java.util.List;
 
 /**
  * map serer script
@@ -30,9 +24,5 @@ public class MapServiceScript implements InitPrint {
         this.dataCenter = dataCenter;
     }
 
-    @PostConstruct
-    public void initMap() {
-
-    }
 
 }

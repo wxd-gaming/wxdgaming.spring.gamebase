@@ -7,6 +7,7 @@ server:
     defaultCoreSize: 2 #默认线程池
     logicCoreSize: 10 #逻辑线程池
 
+login-jwt-Secret-Key: dfdfdf^$#$%%^6!~
 
 spring:
   main:
