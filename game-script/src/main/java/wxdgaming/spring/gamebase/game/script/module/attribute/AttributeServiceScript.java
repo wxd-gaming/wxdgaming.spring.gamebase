@@ -124,7 +124,7 @@ public class AttributeServiceScript implements InitPrint, ILogin {
             if (log.isDebugEnabled() && object instanceof Player player) {
                 log.info("{}, 属性：{}", object, FastJsonUtil.toJson(object.getFinalAttrMap()));
                 {
-                    rankScript.updatePower(player);
+                    // rankScript.updatePower(player);
                 }
             }
         }

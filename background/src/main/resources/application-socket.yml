@@ -13,6 +13,8 @@ socket:
       jks_path: "jks/wxdtest-1.8.jks"
       jks_pwd_path: "jks/wxdtest-1.8.jks.pwd"
 
+  rpc-token: gegewgwgew
+
 #  client:
 #    client-work-size: 2 #netty client work 线程数量
 #    login:
