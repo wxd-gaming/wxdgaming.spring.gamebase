@@ -1,16 +1,15 @@
-package wxdgaming.spring.gamebase.game.server.module.login;
+package wxdgaming.spring.gamebase.game.script.module.event;
 
 import wxdgaming.spring.gamebase.game.server.bean.entity.user.Player;
 
 /**
- * 玩家登录
+ * 登录事件接口
  *
  * @author: wxd-gaming(無心道, 15388152619)
- * @version: 2024-10-11 09:46
+ * @version: 2024-11-20 13:59
  **/
 public interface ILogin {
 
-    /** 玩家登录 */
-    void login(Player player);
+    void onLogin(Player player);
 
 }

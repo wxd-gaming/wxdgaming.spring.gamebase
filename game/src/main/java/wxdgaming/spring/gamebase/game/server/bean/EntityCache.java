@@ -2,8 +2,6 @@ package wxdgaming.spring.gamebase.game.server.bean;
 
 import lombok.Getter;
 import wxdgaming.spring.boot.core.cache.Cache;
-import wxdgaming.spring.boot.core.function.Consumer2;
-import wxdgaming.spring.boot.core.function.Function2;
 import wxdgaming.spring.boot.data.batis.BaseJpaRepository;
 import wxdgaming.spring.boot.data.batis.EntityBase;
 
@@ -26,22 +24,34 @@ public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaReposito
         cache = Cache.<ID, E>builder()
                 .cacheName(this.getClass().getName())
                 .expireAfterAccess(12, TimeUnit.HOURS)
-                .loader(uid -> r.findById(uid).orElse(null))
-                .heartListener(new Consumer2<ID, E>() {
-                    @Override public void accept(ID id, E e) {
-
-                    }
-                })
-                .removalListener(new Function2<ID, E, Boolean>() {
-                    @Override public Boolean apply(ID id, E e) {
-                        return true;
-                    }
-                })
+                .loader(this::loadEntity)
+                .heartListener(this::heartListener)
+                .removalListener(this::removalListener)
                 .build();
     }
 
+    /** 加载数据 */
+    protected E loadEntity(ID id) {
+        return r.findById(id).orElse(null);
+    }
+
+    /** 对数据做心跳处理，比如保存数据等 */
+    protected void heartListener(ID id, E e) {}
+
+    /** 缓存过期回调操作，默认保存数据 */
+    protected boolean removalListener(ID id, E e) {
+        r.save(e);
+        return true;
+    }
+
+    /** 如果查询 null 返回null */
     public E getIfPresent(ID id) {
         return cache.getIfPresent(id);
+    }
+
+    /** 如果查询 null 异常 */
+    public E get(ID id) {
+        return cache.get(id);
     }
 
     public void put(E e) {

@@ -3,9 +3,10 @@ package wxdgaming.spring.gamebase.game.server.module.datacache;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
+import wxdgaming.spring.boot.core.collection.concurrent.ConcurrentTable;
+import wxdgaming.spring.boot.core.json.FastJsonUtil;
 import wxdgaming.spring.boot.core.threading.ExecutorBuilder;
 import wxdgaming.spring.boot.core.threading.LogicExecutor;
 import wxdgaming.spring.boot.core.threading.QueueEvent;
@@ -14,7 +15,10 @@ import wxdgaming.spring.gamebase.entity.Const;
 import wxdgaming.spring.gamebase.game.server.bean.MapInfo;
 import wxdgaming.spring.gamebase.game.server.bean.cache.PlayerMailCache;
 import wxdgaming.spring.gamebase.game.server.bean.cache.ServerMailCache;
+import wxdgaming.spring.gamebase.game.server.bean.entity.global.GlobalDataBean;
+import wxdgaming.spring.gamebase.game.server.bean.repository.GlobalDataJpaRepository;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,15 +32,30 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class DataCenter implements InitPrint {
 
-    @Autowired PlayerMailCache roleMailCache;
-    @Autowired ServerMailCache serverMailCache;
-    @Autowired ExecutorBuilder executorBuilder;
-    @Autowired LogicExecutor logicExecutor;
-    @Autowired DataRepository dataRepository;
+    final PlayerMailCache roleMailCache;
+    final ServerMailCache serverMailCache;
+    final GlobalDataJpaRepository globalDataJpaRepository;
+    final ExecutorBuilder executorBuilder;
+    final LogicExecutor logicExecutor;
+    final DataRepository dataRepository;
 
     int logicCoreSize;
     final ConcurrentHashMap<String, QueueEvent> queueEvents = new ConcurrentHashMap<>();
     final ConcurrentHashMap<Long, MapInfo> mapInfoHashMap = new ConcurrentHashMap<>();
+    final ConcurrentTable<Integer, Integer, GlobalDataBean> globalDataBeanMap = new ConcurrentTable<>();
+
+    public DataCenter(PlayerMailCache roleMailCache,
+                      ServerMailCache serverMailCache,
+                      ExecutorBuilder executorBuilder,
+                      LogicExecutor logicExecutor,
+                      DataRepository dataRepository, GlobalDataJpaRepository globalDataJpaRepository) {
+        this.roleMailCache = roleMailCache;
+        this.serverMailCache = serverMailCache;
+        this.executorBuilder = executorBuilder;
+        this.logicExecutor = logicExecutor;
+        this.dataRepository = dataRepository;
+        this.globalDataJpaRepository = globalDataJpaRepository;
+    }
 
     @PostConstruct
     public void initData() {
@@ -46,7 +65,16 @@ public class DataCenter implements InitPrint {
             String queueName = Const.MapQueue + i;
             queueEvents.put(queueName, new QueueEvent(queueName, logicExecutor));
         }
+
+        List<GlobalDataBean> all = this.globalDataJpaRepository.findAllNotMerge();
+        for (GlobalDataBean globalDataBean : all) {
+            GlobalDataBean parse = FastJsonUtil.parse(globalDataBean.getData(), GlobalDataBean.class);
+            globalDataBeanMap.put(globalDataBean.getSid(), globalDataBean.getTypeId(), parse);
+        }
+
     }
+
+
 
     public QueueEvent getQueueEvent(String queueName) {
         return queueEvents.get(queueName);
