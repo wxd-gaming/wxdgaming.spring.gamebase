@@ -20,7 +20,6 @@ import wxdgaming.spring.boot.data.batis.EntityBase;
         indexes = {
                 @Index(columnList = "sid"),
                 @Index(columnList = "typeId"),
-                @Index(columnList = "updateTime"),
                 @Index(columnList = "mergeTime"),
 
         },

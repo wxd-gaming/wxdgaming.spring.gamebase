@@ -12,6 +12,7 @@ login-jwt-Secret-Key: dfdfdf^$#$%%^6!~
 data:
   json:
     path: "cfg-json"
+    scan: "wxdgaming.spring.gamebase.entity.cfg"
 
 spring:
   main:
