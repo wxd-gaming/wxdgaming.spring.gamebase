@@ -38,7 +38,6 @@ public class SocketTest {
         webSocketClient = socketClientBuilder.webSocketClient(
                 defaultExecutor,
                 bootstrapBuilder,
-                new SessionHandler() {},
                 new ClientMessageDecode(bootstrapBuilder, messageDispatcher),
                 new ClientMessageEncode(messageDispatcher)
         );

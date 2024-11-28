@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import wxdgaming.spring.boot.core.threading.DefaultExecutor;
 import wxdgaming.spring.boot.net.BootstrapBuilder;
-import wxdgaming.spring.boot.net.SessionHandler;
 import wxdgaming.spring.boot.net.client.ClientMessageDecode;
 import wxdgaming.spring.boot.net.client.ClientMessageEncode;
 import wxdgaming.spring.boot.net.client.SocketClientBuilder;
@@ -33,7 +32,6 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
     @ConditionalOnProperty(prefix = "socket.client.login", name = "port")
     public TcpSocketClient loginClient(DefaultExecutor defaultExecutor, BootstrapBuilder bootstrapBuilder,
                                        SocketClientBuilder socketClientBuilder,
-                                       SessionHandler sessionHandler,
                                        ClientMessageDecode clientMessageDecode,
                                        ClientMessageEncode clientMessageEncode) {
 
@@ -41,7 +39,7 @@ public class LoginClientBuild extends SocketClientBuilder.Config {
                 defaultExecutor,
                 bootstrapBuilder,
                 socketClientBuilder,
-                this, sessionHandler,
+                this,
                 clientMessageDecode,
                 clientMessageEncode
         );
