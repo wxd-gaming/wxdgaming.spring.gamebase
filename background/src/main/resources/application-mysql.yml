@@ -7,9 +7,10 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
   db:
-    url: jdbc:mysql://localhost:3306/game_base_background?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/game_base_background?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: test
     show-sql: true
     ddl-auto: update
+    batch-size: 100

@@ -1,7 +1,7 @@
 package wxdgaming.spring.gamebase.game.server.bean.repository;
 
 import org.springframework.stereotype.Repository;
-import wxdgaming.spring.boot.data.batis.BaseJpaRepository;
+import wxdgaming.spring.boot.data.batis.BaseRepository;
 import wxdgaming.spring.gamebase.game.server.bean.entity.user.PlayerSummary;
 
 /**
@@ -11,5 +11,5 @@ import wxdgaming.spring.gamebase.game.server.bean.entity.user.PlayerSummary;
  * @version: 2024-10-10 19:52
  **/
 @Repository
-public interface PlayerSummaryJpaRepository extends BaseJpaRepository<PlayerSummary, Long> {
+public interface PlayerSummaryJpaRepository extends BaseRepository<PlayerSummary, Long> {
 }

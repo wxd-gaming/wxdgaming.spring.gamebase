@@ -1,7 +1,7 @@
 package wxdgaming.spring.gamebase.background.entity.store;
 
 import org.springframework.stereotype.Repository;
-import wxdgaming.spring.boot.data.batis.BaseJpaRepository;
+import wxdgaming.spring.boot.data.batis.BaseRepository;
 import wxdgaming.spring.gamebase.background.entity.bean.GameInfo;
 
 /**
@@ -11,6 +11,6 @@ import wxdgaming.spring.gamebase.background.entity.bean.GameInfo;
  * @version: 2024-10-14 13:53
  **/
 @Repository
-public interface GameInfoRepository extends BaseJpaRepository<GameInfo, Integer> {
+public interface GameInfoRepository extends BaseRepository<GameInfo, Integer> {
 
 }

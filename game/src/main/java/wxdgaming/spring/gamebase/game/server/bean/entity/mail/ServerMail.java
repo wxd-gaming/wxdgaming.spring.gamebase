@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import wxdgaming.spring.boot.data.batis.converter.LongListToJsonConverter;
+import wxdgaming.spring.boot.data.converter.LongListToJsonConverter;
 
 import java.util.ArrayList;
 import java.util.List;

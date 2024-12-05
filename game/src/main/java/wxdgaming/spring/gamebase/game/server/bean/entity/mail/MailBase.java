@@ -6,8 +6,8 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import wxdgaming.spring.boot.data.batis.EntityBase;
-import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
+import wxdgaming.spring.boot.data.EntityBase;
+import wxdgaming.spring.boot.data.converter.ObjectToJsonStringConverter;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@ import wxdgaming.spring.boot.core.ann.ReLoad;
 import wxdgaming.spring.boot.core.ann.Start;
 import wxdgaming.spring.boot.core.system.JvmUtil;
 import wxdgaming.spring.boot.core.timer.MyClock;
-import wxdgaming.spring.boot.data.batis.DataBatisScan;
+import wxdgaming.spring.boot.data.batis.DataJdbcScan;
 import wxdgaming.spring.boot.data.excel.DataExcelScan;
 import wxdgaming.spring.boot.data.redis.DataRedisScan;
 import wxdgaming.spring.boot.net.NetScan;
@@ -44,7 +44,7 @@ import java.util.Optional;
         scanBasePackageClasses = {
                 DriveScan.class,
                 CoreScan.class,
-                DataBatisScan.class,
+                DataJdbcScan.class,
                 DataRedisScan.class,
                 DataExcelScan.class,
                 NetScan.class,

@@ -1,7 +1,7 @@
 package wxdgaming.spring.gamebase.game.server.bean.repository;
 
 import org.springframework.stereotype.Repository;
-import wxdgaming.spring.boot.data.batis.BaseJpaRepository;
+import wxdgaming.spring.boot.data.batis.BaseRepository;
 import wxdgaming.spring.gamebase.game.server.bean.entity.mail.ServerMail;
 
 /**
@@ -11,6 +11,6 @@ import wxdgaming.spring.gamebase.game.server.bean.entity.mail.ServerMail;
  * @version: 2024-09-16 23:34
  **/
 @Repository
-public interface ServerMailJpaRepository extends BaseJpaRepository<ServerMail, Long> {
+public interface ServerMailJpaRepository extends BaseRepository<ServerMail, Long> {
 
 }

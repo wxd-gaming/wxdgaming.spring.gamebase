@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.core.collection.Table;
-import wxdgaming.spring.boot.data.batis.converter.ObjectToJsonStringConverter;
+import wxdgaming.spring.boot.data.converter.ObjectToJsonStringConverter;
 import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.gamebase.entity.TaskType;
 import wxdgaming.spring.gamebase.game.server.bean.MapObject;

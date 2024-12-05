@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import wxdgaming.spring.boot.data.batis.converter.JSONObjectToJsonConverter;
+import wxdgaming.spring.boot.data.converter.JSONObjectToJsonConverter;
 
 /**
  * @author: wxd-gaming(無心道, 15388152619)

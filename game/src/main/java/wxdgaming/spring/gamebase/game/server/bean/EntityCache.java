@@ -2,8 +2,8 @@ package wxdgaming.spring.gamebase.game.server.bean;
 
 import lombok.Getter;
 import wxdgaming.spring.boot.core.cache.Cache;
-import wxdgaming.spring.boot.data.batis.BaseJpaRepository;
-import wxdgaming.spring.boot.data.batis.EntityBase;
+import wxdgaming.spring.boot.data.batis.BaseRepository;
+import wxdgaming.spring.boot.data.EntityBase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @version: 2024-09-16 23:44
  **/
 @Getter
-public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseJpaRepository<E, ID>> {
+public class EntityCache<ID, E extends EntityBase<ID>, R extends BaseRepository<E, ID>> {
 
     R r;
     Cache<ID, E> cache;

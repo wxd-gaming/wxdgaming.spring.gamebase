@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import wxdgaming.spring.boot.data.batis.EntityAutoBase;
+import wxdgaming.spring.boot.data.EntityAutoBase;
 
 /**
  * 游戏信息
