@@ -1,11 +1,12 @@
 package wxdgaming.spring.gamebase.background.module.slog;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSONObject;
-import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.data.batis.DruidSourceConfig;
+import wxdgaming.spring.boot.data.batis.JdbcContext;
 import wxdgaming.spring.boot.data.batis.JdbcHelper;
 import wxdgaming.spring.gamebase.background.entity.slog.Slog;
 import wxdgaming.spring.gamebase.background.entity.store.SlogRepository;
@@ -24,25 +25,25 @@ import java.util.Map;
 public class SlogService {
 
     final SlogRepository slogRepository;
-    final JdbcHelper jdbcHelper;
-    final EntityManager nativeEntityManager;
+    final JdbcContext jdbcContext;
 
     public SlogService(SlogRepository slogRepository, JdbcHelper jdbcHelper) {
         this.slogRepository = slogRepository;
-        this.jdbcHelper = jdbcHelper;
-        DruidSourceConfig copy = this.jdbcHelper.getDb().copy("base-test-2");
+        DruidSourceConfig copy = jdbcHelper.getDb().copy("base-test-2");
         copy.setShowSql(false);
         copy.setPackageNames(new String[]{Slog.class.getPackageName()});
-        nativeEntityManager = copy.entityManagerFactory(Map.of());
+        copy.createDatabase();
+        DruidDataSource dataSource = copy.toDataSource();
+        jdbcContext = new JdbcContext(dataSource, copy.entityManagerFactory(dataSource, Map.of()));
     }
 
     @Scheduled(cron = "*/5 * * * * *")
     public void postLog() {
-        {
-            nativeEntityManager.getTransaction().begin();
-            nativeEntityManager.createNativeQuery("TRUNCATE slog;").executeUpdate();
-            nativeEntityManager.getTransaction().commit();
-        }
+        // {
+        //     nativeEntityManager.getTransaction().begin();
+        //     nativeEntityManager.createNativeQuery("TRUNCATE slog;").executeUpdate();
+        //     nativeEntityManager.getTransaction().commit();
+        // }
         {
             ArrayList<Slog> logs = new ArrayList<>(10000);
             for (int i = 0; i < 10000; i++) {
@@ -59,7 +60,7 @@ public class SlogService {
                 logs.add(slog);
             }
             long start = System.nanoTime();
-            jdbcHelper.batchSave(nativeEntityManager, logs);
+            jdbcContext.batchSave(logs);
             System.out.println(((System.nanoTime() - start) / 10000 / 100f) + " ms");
         }
     }
