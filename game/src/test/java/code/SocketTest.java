@@ -28,7 +28,7 @@ public class SocketTest {
     public void before() throws Exception {
         defaultExecutor = new ExecutorBuilder().defaultExecutor();
         bootstrapBuilder = new BootstrapBuilder();
-        messageDispatcher = new MessageDispatcher();
+        messageDispatcher = new MessageDispatcher(new String[0]) {};
 
 
         SocketClientBuilder socketClientBuilder = new SocketClientBuilder();
