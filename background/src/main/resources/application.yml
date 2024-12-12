@@ -15,7 +15,7 @@ spring:
     active: redis,mysql,socket
   web:
     resources:
-      static-locations: classpath:/static/,classpath:/public/
+      static-locations: file:/update/,file:/public/classpath:/static/,classpath:/public/
   mvc:
     static-path-pattern: /**
   thymeleaf:
