@@ -8,10 +8,7 @@ import org.junit.Test;
 import wxdgaming.spring.boot.core.threading.DefaultExecutor;
 import wxdgaming.spring.boot.core.threading.ExecutorBuilder;
 import wxdgaming.spring.boot.net.*;
-import wxdgaming.spring.boot.net.client.ClientMessageDecode;
-import wxdgaming.spring.boot.net.client.ClientMessageEncode;
-import wxdgaming.spring.boot.net.client.SocketClientBuilder;
-import wxdgaming.spring.boot.net.client.WebSocketClient;
+import wxdgaming.spring.boot.net.client.*;
 
 import java.nio.charset.StandardCharsets;
 
@@ -22,7 +19,7 @@ public class SocketTest {
     MessageDispatcher messageDispatcher;
     DefaultExecutor defaultExecutor;
 
-    WebSocketClient webSocketClient;
+    SocketClient webSocketClient;
 
     @Before
     public void before() throws Exception {
@@ -32,10 +29,9 @@ public class SocketTest {
 
 
         SocketClientBuilder socketClientBuilder = new SocketClientBuilder();
-        socketClientBuilder.setWeb(new SocketClientBuilder.Config().setPort(22001));
-        socketClientBuilder.init();
+        socketClientBuilder.setConfig(new ClientConfig().setPort(22001).setUseWebSocket(true));
 
-        webSocketClient = socketClientBuilder.webSocketClient(
+        webSocketClient = socketClientBuilder.socketClient(
                 defaultExecutor,
                 bootstrapBuilder,
                 new ClientMessageDecode(bootstrapBuilder, messageDispatcher),

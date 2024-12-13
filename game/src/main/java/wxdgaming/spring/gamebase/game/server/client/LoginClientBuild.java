@@ -1,17 +1,11 @@
 package wxdgaming.spring.gamebase.game.server.client;
 
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import wxdgaming.spring.boot.core.threading.DefaultExecutor;
-import wxdgaming.spring.boot.net.BootstrapBuilder;
-import wxdgaming.spring.boot.net.client.ClientMessageDecode;
-import wxdgaming.spring.boot.net.client.ClientMessageEncode;
-import wxdgaming.spring.boot.net.client.SocketClientBuilder;
-import wxdgaming.spring.boot.net.client.TcpSocketClient;
+import wxdgaming.spring.boot.net.client.SocketClient;
 import wxdgaming.spring.boot.rpc.RpcService;
 
 /**
@@ -22,29 +16,17 @@ import wxdgaming.spring.boot.rpc.RpcService;
  **/
 @Getter
 @Configuration
-@ConfigurationProperties("socket.client.login")
-public class LoginClientBuild extends SocketClientBuilder.Config {
+@ConditionalOnProperty(prefix = "socket.client.config", name = "port")
+public class LoginClientBuild {
 
-    @Autowired RpcService rpcService;
-    TcpSocketClient loginSocket = null;
+    RpcService rpcService;
+    SocketClient loginSocket = null;
 
-    @Bean(name = "loginClient")
-    @ConditionalOnProperty(prefix = "socket.client.login", name = "port")
-    public TcpSocketClient loginClient(DefaultExecutor defaultExecutor, BootstrapBuilder bootstrapBuilder,
-                                       SocketClientBuilder socketClientBuilder,
-                                       ClientMessageDecode clientMessageDecode,
-                                       ClientMessageEncode clientMessageEncode) {
-
-        loginSocket = new TcpSocketClient(
-                defaultExecutor,
-                bootstrapBuilder,
-                socketClientBuilder,
-                this,
-                clientMessageDecode,
-                clientMessageEncode
-        );
-        return loginSocket;
+    @PostConstruct
+    public void init(RpcService rpcService,
+                     @Qualifier("socketClient") final SocketClient socketClient) {
+        this.rpcService = rpcService;
+        this.loginSocket = socketClient;
     }
-
 
 }
