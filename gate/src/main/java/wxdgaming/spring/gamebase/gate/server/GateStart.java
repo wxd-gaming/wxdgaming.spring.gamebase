@@ -35,7 +35,7 @@ import wxdgaming.spring.boot.net.NetScan;
 public class GateStart {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(GateStart.class, args);
+        SpringApplication.run(GateStart.class, args);
         SpringUtil.getIns().executor(Start.class);
     }
 

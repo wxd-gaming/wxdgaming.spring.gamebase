@@ -28,7 +28,7 @@ spring:
     multipart: # 文件上传配置
       max-file-size: 20MB
       max-request-size: 100MB
-      enabled: true
+      enabled: false
   task:
     scheduling: # 定时任务线程池配置
       pool:
