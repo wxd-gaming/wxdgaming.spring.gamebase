@@ -21,6 +21,7 @@
         <module>game-script</module>
         <module>gate-script</module>
         <module>background</module>
+        <module>mini-game</module>
     </modules>
 
     <properties>
