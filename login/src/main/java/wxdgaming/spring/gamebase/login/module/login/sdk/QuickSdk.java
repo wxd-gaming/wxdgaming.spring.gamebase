@@ -3,10 +3,10 @@ package wxdgaming.spring.gamebase.login.module.login.sdk;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.webclient.HttpClientService;
-import wxdgaming.spring.boot.webclient.HttpPostTextWork;
 import wxdgaming.spring.gamebase.login.data.entity.User;
 import wxdgaming.spring.gamebase.login.module.login.ILogin;
 import wxdgaming.spring.gamebase.login.module.login.LoginChannel;
@@ -26,6 +26,7 @@ public class QuickSdk implements ILogin {
     final LoginService loginService;
     final HttpClientService httpClientService;
 
+    @Autowired
     public QuickSdk(LoginService loginService, HttpClientService httpClientService) {
         this.loginService = loginService;
         this.httpClientService = httpClientService;
@@ -46,10 +47,7 @@ public class QuickSdk implements ILogin {
         /*第2步查询user数据*/
         User user = loginService.find(channel(), account, token, params);
 
-        return loginAfter(user);
+        return loginAfter(loginService.getPRIVATE_TOKEN(), user);
     }
 
-    @Override public RunResult loginAfter(User user) {
-        return ILogin.super.loginAfter(user);
-    }
 }

@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
-import wxdgaming.spring.boot.core.SpringUtil;
-import wxdgaming.spring.boot.core.ann.Start;
+import wxdgaming.spring.boot.core.SpringReflectContent;
+import wxdgaming.spring.boot.core.ann.AppStart;
 import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.Md5Util;
 import wxdgaming.spring.gamebase.login.data.entity.User;
@@ -40,10 +40,9 @@ public class LoginService implements InitPrint {
         //         .build();
     }
 
-    @Start
-    public void start(SpringUtil springUtil) {
-        springUtil
-                .getBeansOfType(ILogin.class)
+    @AppStart
+    public void start(SpringReflectContent springReflectContent) {
+        springReflectContent.withSuper(ILogin.class)
                 .forEach(ilogin -> {
                     iLoginHashMap.put(ilogin.channel(), ilogin);
                     log.debug("register login channel {} controller {}", ilogin.channel(), ilogin.getClass().getName());

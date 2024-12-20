@@ -10,8 +10,6 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import wxdgaming.spring.boot.core.CoreScan;
-import wxdgaming.spring.boot.core.SpringUtil;
-import wxdgaming.spring.boot.core.ann.Start;
 import wxdgaming.spring.boot.data.batis.DataJdbcScan;
 import wxdgaming.spring.boot.net.NetScan;
 import wxdgaming.spring.boot.rpc.RpcScan;
@@ -49,10 +47,9 @@ public class LoginStart {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(LoginStart.class, args);
 
-        SpringUtil ins = SpringUtil.getIns();
-        ins.executor(Start.class);
+        run.getBean(LoginSpringReflect.class).content().executorAppStartMethod();
 
-        RpcService rpcService = ins.getBean(RpcService.class);
+        RpcService rpcService = run.getBean(RpcService.class);
 
         RpcMessage.ReqRemote rpcMessage = new RpcMessage.ReqRemote();
         rpcMessage

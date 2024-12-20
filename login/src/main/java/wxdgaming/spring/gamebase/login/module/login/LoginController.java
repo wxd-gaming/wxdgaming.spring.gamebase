@@ -1,23 +1,14 @@
 package wxdgaming.spring.gamebase.login.module.login;
 
 import com.alibaba.fastjson.JSONObject;
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wxdgaming.spring.boot.core.InitPrint;
-import wxdgaming.spring.boot.core.SpringUtil;
-import wxdgaming.spring.boot.core.ann.Start;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.rpc.RPC;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * login 处理

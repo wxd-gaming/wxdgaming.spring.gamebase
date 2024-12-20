@@ -37,7 +37,7 @@ public class LocalSdk implements ILogin {
             return RunResult.error("token error");
         }
 
-        return loginAfter(user);
+        return loginAfter(loginService.getPRIVATE_TOKEN(), user);
     }
 
 }

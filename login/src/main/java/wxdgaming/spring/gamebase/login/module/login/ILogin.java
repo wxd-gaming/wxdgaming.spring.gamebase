@@ -3,7 +3,6 @@ package wxdgaming.spring.gamebase.login.module.login;
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.JwtBuilder;
 import wxdgaming.spring.boot.core.LogbackUtil;
-import wxdgaming.spring.boot.core.SpringUtil;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.JwtUtils;
@@ -34,10 +33,10 @@ public interface ILogin {
     RunResult login(String account, String token, JSONObject params);
 
     /** 登录之后处理 */
-    default RunResult loginAfter(User user) {
+    default RunResult loginAfter(String secretKey, User user) {
         long time = MyClock.millis();
         /*生成前端和游戏服或者网关交换时需要的密钥*/
-        JwtBuilder jwtBuilder = JwtUtils.createJwt(SpringUtil.getIns().getBean(LoginService.class).getPRIVATE_TOKEN());
+        JwtBuilder jwtBuilder = JwtUtils.createJwt(secretKey);
         String compact = jwtBuilder
                 .claim("userId", user.getOpenId())
                 .claim("account", user.getAccount())

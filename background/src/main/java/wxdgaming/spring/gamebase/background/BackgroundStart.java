@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import wxdgaming.spring.boot.core.CoreScan;
-import wxdgaming.spring.boot.core.SpringUtil;
-import wxdgaming.spring.boot.core.ann.Start;
 import wxdgaming.spring.boot.data.batis.DataJdbcScan;
 import wxdgaming.spring.boot.data.redis.DataRedisScan;
 import wxdgaming.spring.boot.net.NetScan;
@@ -41,7 +39,7 @@ public class BackgroundStart {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(BackgroundStart.class);
-        SpringUtil.getIns().executor(Start.class);
+        run.getBean(BackgroundSpringReflect.class).content().executorAppStartMethod();
     }
 
 }
