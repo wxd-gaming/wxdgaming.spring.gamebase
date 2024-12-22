@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import wxdgaming.spring.boot.core.CoreScan;
 import wxdgaming.spring.boot.data.batis.DataJdbcScan;
 import wxdgaming.spring.boot.net.NetScan;
+import wxdgaming.spring.boot.rpc.RpcDispatcher;
 import wxdgaming.spring.boot.rpc.RpcScan;
 import wxdgaming.spring.boot.rpc.RpcService;
 import wxdgaming.spring.boot.rpc.pojo.RpcMessage;
@@ -50,12 +51,13 @@ public class LoginStart {
         run.getBean(LoginSpringReflect.class).content().executorAppStartMethod();
 
         RpcService rpcService = run.getBean(RpcService.class);
+        RpcDispatcher rpcDispatcher = run.getBean(RpcDispatcher.class);
 
         RpcMessage.ReqRemote rpcMessage = new RpcMessage.ReqRemote();
         rpcMessage
                 .setRpcId(1)
                 .setPath("rpcTest")
-                .setRpcToken(rpcService.getRPC_TOKEN())
+                .setRpcToken(rpcDispatcher.getRPC_TOKEN())
                 .setParams(new JSONObject().fluentPut("type", 1).toString())
         ;
 
