@@ -53,11 +53,10 @@ public class LoginStart {
         RpcService rpcService = run.getBean(RpcService.class);
         RpcDispatcher rpcDispatcher = run.getBean(RpcDispatcher.class);
 
-        RpcMessage.ReqRemote rpcMessage = new RpcMessage.ReqRemote();
+        RpcMessage.ReqRPC rpcMessage = new RpcMessage.ReqRPC();
         rpcMessage
                 .setRpcId(1)
                 .setPath("rpcTest")
-                .setRpcToken(rpcDispatcher.getRPC_TOKEN())
                 .setParams(new JSONObject().fluentPut("type", 1).toString())
         ;
 
