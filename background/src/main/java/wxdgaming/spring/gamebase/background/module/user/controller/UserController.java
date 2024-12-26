@@ -69,7 +69,7 @@ public class UserController implements InitPrint {
     }
 
     RunResult login(Account account) {
-        String compact = JwtUtils.createJwt().header().add("type", "account").and()
+        String compact = JwtUtils.createJwtBuilder().header().add("type", "account").and()
                 .expiration(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7)))
                 .claim("account", account.getUid().toString())
                 .claim("accountName", account.getName())

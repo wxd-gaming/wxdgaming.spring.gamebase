@@ -36,7 +36,7 @@ public interface ILogin {
     default RunResult loginAfter(String secretKey, User user) {
         long time = MyClock.millis();
         /*生成前端和游戏服或者网关交换时需要的密钥*/
-        JwtBuilder jwtBuilder = JwtUtils.createJwt(secretKey);
+        JwtBuilder jwtBuilder = JwtUtils.createJwtBuilder(secretKey);
         String compact = jwtBuilder
                 .claim("userId", user.getOpenId())
                 .claim("account", user.getAccount())
