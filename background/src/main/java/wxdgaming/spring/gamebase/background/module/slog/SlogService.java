@@ -29,12 +29,12 @@ public class SlogService {
 
     public SlogService(SlogRepository slogRepository, JdbcHelper jdbcHelper) {
         this.slogRepository = slogRepository;
-        DruidSourceConfig copy = jdbcHelper.getDb().copy("base-test-2");
+        DruidSourceConfig copy = jdbcHelper.getConfig().copy("base-test-2");
         copy.setShowSql(false);
         copy.setPackageNames(new String[]{Slog.class.getPackageName()});
         copy.createDatabase();
         DruidDataSource dataSource = copy.toDataSource();
-        jdbcContext = new JdbcContext(dataSource, copy.entityManagerFactory(dataSource, Map.of()));
+        jdbcContext = new JdbcContext(dataSource, copy.entityManager(dataSource, Map.of()));
     }
 
     @Scheduled(cron = "*/5 * * * * *")

@@ -1,8 +1,8 @@
 package wxdgaming.spring.gamebase.login.module.login;
 
+import ch.qos.logback.core.LogbackUtil;
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.JwtBuilder;
-import wxdgaming.spring.boot.core.LogbackUtil;
 import wxdgaming.spring.boot.core.lang.RunResult;
 import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.JwtUtils;
