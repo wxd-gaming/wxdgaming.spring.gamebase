@@ -31,6 +31,11 @@ public class Slog extends EntityBase<Long> {
     int lv;
     int vipLv;
     String clientIp;
+    /**
+     * SELECT JSON_EXTRACT(content, '$.box') AS box_value, JSON_EXTRACT(content, '$.test') AS test_value
+     * FROM logs
+     * WHERE JSON_EXTRACT(content, '$.box') = 1;
+     */
     @Convert(converter = JSONObjectToJsonConverter.class)
     @Column(columnDefinition = "json comment '内容'", nullable = false)
     JSONObject content;

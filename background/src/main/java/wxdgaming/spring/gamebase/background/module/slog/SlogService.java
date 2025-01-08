@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import wxdgaming.spring.boot.core.format.HexId;
 import wxdgaming.spring.boot.data.batis.DruidSourceConfig;
 import wxdgaming.spring.boot.data.batis.JdbcContext;
 import wxdgaming.spring.boot.data.batis.JdbcHelper;
@@ -26,6 +27,7 @@ public class SlogService {
 
     final SlogRepository slogRepository;
     final JdbcContext jdbcContext;
+    HexId hexId = new HexId(1);
 
     public SlogService(SlogRepository slogRepository, JdbcHelper jdbcHelper) {
         this.slogRepository = slogRepository;
@@ -48,19 +50,20 @@ public class SlogService {
             ArrayList<Slog> logs = new ArrayList<>(10000);
             for (int i = 0; i < 10000; i++) {
                 Slog slog = new Slog();
-                slog.setUid(System.nanoTime());
+                slog.setUid(hexId.newId());
                 slog.setGameId(1001);
                 slog.setSid(1).setMainSid(1);
 
                 slog.setRoleId(1).setRoleName("dd").setLv(1).setVipLv(0);
                 slog.setLoginAccount("dd");
                 slog.setClientIp("127.0.0.1");
-                slog.setContent(new JSONObject().fluentPut("test", "test"));
+                slog.setContent(new JSONObject().fluentPut("test", "test").fluentPut("box", 1));
                 // slogRepository.save(slog);
                 logs.add(slog);
             }
             long start = System.nanoTime();
-            jdbcContext.batchSave(logs);
+            // jdbcContext.batchSave(logs);
+            jdbcContext.batchInsert(logs);
             System.out.println(((System.nanoTime() - start) / 10000 / 100f) + " ms");
         }
     }
