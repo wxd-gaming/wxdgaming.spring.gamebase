@@ -54,8 +54,8 @@ public class SlogService {
                 slog.setGameId(1001);
                 slog.setSid(1).setMainSid(1);
 
-                slog.setRoleId(1).setRoleName("dd").setLv(1).setVipLv(0);
                 slog.setLoginAccount("dd");
+                slog.setRoleId(1).setRoleName("dd").setLv(1).setVipLv(0);
                 slog.setClientIp("127.0.0.1");
                 slog.setContent(new JSONObject().fluentPut("test", "test").fluentPut("box", 1));
                 // slogRepository.save(slog);
