@@ -1,0 +1,5 @@
+game:
+  config:
+    debug: true
+    sid: 1
+    maxOnline: 1000

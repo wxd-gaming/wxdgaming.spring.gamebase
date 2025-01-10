@@ -21,7 +21,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   profiles:
-    active: redis,socket,h2
+    active: game,redis,socket,h2
   web:
     resources:
       add-mappings: true

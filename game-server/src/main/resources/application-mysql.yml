@@ -9,9 +9,9 @@ spring:
 
   jdbc:
     config:
-      url: jdbc:mysql://localhost:3306/test-logic?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/game1?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
       username: root
       password: test
-      driver-class-name: com.mysql.cj.jdbc.Driver
       show-sql: false
       ddl-auto: "update"
