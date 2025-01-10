@@ -1,12 +1,13 @@
-package wxdgaming.spring.game.server.bean.entity;
+package wxdgaming.spring.game.server.bean;
 
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Convert;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import wxdgaming.spring.boot.data.EntityBase;
-import wxdgaming.spring.game.server.bean.AttributeInfo;
-import wxdgaming.spring.game.server.bean.AttributeModule;
+import wxdgaming.spring.boot.data.converter.ObjectToJsonStringConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class MapObject extends EntityBase<Long> {
     private long mp;
 
     private transient Map<AttributeModule, AttributeInfo> attributeModuleMap = new HashMap<>();
+    @Convert(converter = ObjectToJsonStringConverter.class)
     private AttributeInfo attributeFinal = new AttributeInfo();
 
 
