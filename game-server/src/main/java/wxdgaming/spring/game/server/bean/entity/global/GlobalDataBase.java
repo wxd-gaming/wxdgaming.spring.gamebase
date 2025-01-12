@@ -6,5 +6,8 @@ package wxdgaming.spring.game.server.bean.entity.global;
  * @author: wxd-gaming(無心道, 15388152619)
  * @version: 2025-01-10 16:33
  **/
-public class GlobalDataBase {
+public abstract class GlobalDataBase {
+
+    public abstract GlobalType getType();
+
 }
