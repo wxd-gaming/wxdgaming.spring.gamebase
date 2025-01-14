@@ -16,4 +16,6 @@ import wxdgaming.spring.game.server.bean.MapObject;
 @Entity
 public class Player extends MapObject {
 
+
+
 }

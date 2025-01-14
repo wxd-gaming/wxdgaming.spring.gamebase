@@ -1,0 +1,32 @@
+server:
+  port: 18801   #端口号
+  tomcat:
+    initial-size: 64 #初始化内存
+    min-free-size: 64 #最小内存
+    max-size: 128     #最小内存
+    max-threads: 100
+    min-spare-threads: 10
+  #  undertow: #替代tomcat配置
+  #    threads:
+  #      io: 4
+  #      worker: 200 #任务线程池
+  #    buffer-size: 1024 #每个块的大小
+  #    direct-buffers: true #直接内存
+  executor:
+    defaultCoreSize: 2 #默认线程池
+    logicCoreSize: 10 #逻辑线程池
+    virtualCoreSize: 200 # 启用虚拟线程 控制并发线程数量
+
+spring:
+  profiles:
+    active: socket
+  web:
+    resources:
+      add-mappings: true
+      static-locations: file:public/,file:upload/,classpath:/public/
+      chain:
+        compressed: true    #开启压缩
+        enabled: true       #开启
+        cache: true         #开启缓存
+      cache:
+        period: 186400      # 缓存一天

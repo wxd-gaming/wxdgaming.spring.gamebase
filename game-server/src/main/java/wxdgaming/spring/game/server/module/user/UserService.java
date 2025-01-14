@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.data.batis.JdbcContext;
+import wxdgaming.spring.game.server.bean.entity.user.PlayerSummary;
 import wxdgaming.spring.game.server.module.data.DbCacheService;
+
+import java.util.stream.Stream;
 
 /**
  * 用户服务
@@ -25,5 +28,8 @@ public class UserService implements InitPrint {
         this.jdbcContext = jdbcContext;
     }
 
+    public Stream<PlayerSummary> findAllPlayerSummary(String openId) {
+        return jdbcContext.findAll2Stream("from PlayerSummary where openId=?1", PlayerSummary.class, openId);
+    }
 
 }
