@@ -37,7 +37,7 @@ public class Slog extends EntityBase<Long> {
      * WHERE JSON_EXTRACT(content, '$.box') = 1;
      */
     @Convert(converter = JSONObjectToJsonConverter.class)
-    @Column(columnDefinition = "json comment '内容'", nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     JSONObject content;
 
 }

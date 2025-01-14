@@ -31,7 +31,7 @@ public class SlogService {
 
     public SlogService(SlogRepository slogRepository, JdbcHelper jdbcHelper) {
         this.slogRepository = slogRepository;
-        DruidSourceConfig copy = jdbcHelper.getConfig().copy("base-test-2");
+        DruidSourceConfig copy = jdbcHelper.getConfig().copy("base_test_2");
         copy.setShowSql(false);
         copy.setPackageNames(new String[]{Slog.class.getPackageName()});
         copy.createDatabase();

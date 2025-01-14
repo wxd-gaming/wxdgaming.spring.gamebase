@@ -12,7 +12,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   profiles:
-    active: redis,mysql,socket
+    active: redis,socket,pgsql
   web:
     resources:
       static-locations: file:/update/,file:/public/classpath:/static/,classpath:/public/

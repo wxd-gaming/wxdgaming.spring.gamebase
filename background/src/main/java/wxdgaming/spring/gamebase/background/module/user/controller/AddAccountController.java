@@ -26,9 +26,15 @@ import wxdgaming.spring.gamebase.background.module.user.UserService;
 @RequestMapping("/account")
 public class AddAccountController {
 
-    @Autowired BackendService backendService;
-    @Autowired UserService userService;
-    @Autowired AccountRepository accountRepository;
+    final BackendService backendService;
+    final UserService userService;
+    final AccountRepository accountRepository;
+
+    public AddAccountController(BackendService backendService, UserService userService, AccountRepository accountRepository) {
+        this.backendService = backendService;
+        this.userService = userService;
+        this.accountRepository = accountRepository;
+    }
 
     @CheckSign
     @RequestMapping("/add")

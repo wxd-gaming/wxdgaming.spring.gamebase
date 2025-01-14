@@ -26,34 +26,34 @@ import wxdgaming.spring.boot.data.EntityBase;
 public class ServerInfo extends EntityBase<Long> {
 
     /** 游戏id */
-    @Column(columnDefinition = "int COMMENT '游戏id'")
+    @Column(columnDefinition = "int")
     private int gameId;
     /** 平台 */
-    @Column(columnDefinition = "varchar(64) COMMENT '服务器名字'")
+    @Column(columnDefinition = "varchar(64)")
     private String platform;
     /** 服务器id */
-    @Column(columnDefinition = "int COMMENT '服务器id'")
+    @Column(columnDefinition = "int")
     private int sid;
     /** 服务器id */
-    @Column(columnDefinition = "int COMMENT '主服的服务器id'")
+    @Column(columnDefinition = "int")
     private int mainSid;
     /** 服务器名字 */
-    @Column(columnDefinition = "varchar(128) COMMENT '服务器名字'")
+    @Column(columnDefinition = "varchar(128)")
     private String name;
     /** 服务器显示名 */
-    @Column(columnDefinition = "varchar(128) COMMENT '服务器显示名字'")
+    @Column(columnDefinition = "varchar(128)")
     private String showName;
     /** 开服时间 */
-    @Column(columnDefinition = "varchar(64) COMMENT '开服时间'")
+    @Column(columnDefinition = "varchar(64)")
     private String openTime;
     /** 维护时间 */
-    @Column(columnDefinition = "varchar(64) COMMENT '维护时间'")
+    @Column(columnDefinition = "varchar(64)")
     private String maintainTime;
     /** ip */
-    @Column(columnDefinition = "varchar(64) COMMENT '外网ip'")
+    @Column(columnDefinition = "varchar(64)")
     private String wlan;
     /** ip */
-    @Column(columnDefinition = "varchar(64) COMMENT '内网ip'")
+    @Column(columnDefinition = "varchar(64)")
     private String lan;
     /** 端口 */
     @Column()
@@ -65,7 +65,7 @@ public class ServerInfo extends EntityBase<Long> {
     @Column()
     private String status;
     /** 版本 */
-    @Column(columnDefinition = "varchar(128) COMMENT '服务器版本号'")
+    @Column(columnDefinition = "varchar(128)")
     private String version;
     /** 注册账户 */
     @Column()
@@ -77,7 +77,7 @@ public class ServerInfo extends EntityBase<Long> {
     @Column()
     private int onlineRoleCount;
     /** 活跃用户 */
-    @Column(columnDefinition = "int DEFAULT 0 COMMENT '活跃用户数'")
+    @Column(columnDefinition = "int")
     private int activeRoleCount;
     /** 充值金额 */
     @Column()

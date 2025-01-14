@@ -21,7 +21,7 @@ import wxdgaming.spring.boot.data.EntityAutoBase;
 @Table(indexes = {})
 public class GameInfo extends EntityAutoBase<Integer> {
 
-    @Column(columnDefinition = "varchar(32) comment '游戏名字'", nullable = false)
+    @Column(columnDefinition = "varchar(32)", nullable = false)
     private String name;
     @Column()
     private String icon;
@@ -30,9 +30,9 @@ public class GameInfo extends EntityAutoBase<Integer> {
     @Column()
     private long updateTime;
     /** 上报数据用的key */
-    @Column(columnDefinition = "varchar(32) comment 'appkey'", nullable = false)
+    @Column(columnDefinition = "varchar(32)", nullable = false)
     private String appKey;
     /** 充值 */
-    @Column(columnDefinition = "varchar(32) comment 'rechargeKey'", nullable = false)
+    @Column(columnDefinition = "varchar(32)", nullable = false)
     private String rechargeKey;
 }

@@ -6,7 +6,7 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-  db:
+  jdbc:
     config:
       url: jdbc:mysql://192.168.137.10:3306/game_base_background?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
       driver-class-name: com.mysql.cj.jdbc.Driver
