@@ -2,6 +2,7 @@ package wxdgaming.spring.game.script.user;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wxdgaming.spring.boot.core.InitPrint;
 import wxdgaming.spring.boot.core.util.JwtUtils;
@@ -19,6 +20,7 @@ import java.util.stream.Stream;
  * @author: wxd-gaming(無心道, 15388152619)
  * @version: 2025-01-10 16:53
  **/
+@Slf4j
 @Service
 public class UserSpi implements InitPrint {
 
@@ -39,6 +41,7 @@ public class UserSpi implements InitPrint {
             resLogin.getRoleList().add(new UserMessage.RoleBean().setRid(playerSummary.getUid()));
         });
         socketSession.writeAndFlush(resLogin);
+        log.info("登陆完成：{}", openId);
     }
 
 }
