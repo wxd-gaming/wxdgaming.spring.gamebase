@@ -11,6 +11,7 @@ import wxdgaming.spring.boot.core.CoreScan;
 import wxdgaming.spring.boot.core.ScriptChildContext;
 import wxdgaming.spring.boot.core.SpringReflect;
 import wxdgaming.spring.boot.core.ann.LogicStart;
+import wxdgaming.spring.boot.core.ann.ReLoad;
 import wxdgaming.spring.boot.data.DataScan;
 import wxdgaming.spring.boot.data.batis.DataJdbcScan;
 import wxdgaming.spring.boot.data.redis.DataRedisScan;
@@ -65,6 +66,7 @@ public class GameServerStart {
         ConfigurableApplicationContext configurableApplicationContext = scriptChildContext.newChild4Classes(applicationContext, parentClassLoader, GameScriptScan.class, "target/script");
         SpringReflect bean = configurableApplicationContext.getBean(SpringReflect.class);
         bean.content().executorMethod(LogicStart.class);
+        bean.content().executorMethod(ReLoad.class);
     }
 
     @ComponentScan(basePackages = {"wxdgaming.spring.game.script"})

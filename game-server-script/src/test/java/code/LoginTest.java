@@ -8,10 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import wxdgaming.spring.boot.core.CoreScan;
+import wxdgaming.spring.boot.core.timer.MyClock;
 import wxdgaming.spring.boot.core.util.JwtUtils;
 import wxdgaming.spring.boot.net.NetScan;
 import wxdgaming.spring.boot.net.client.SocketClient;
-import wxdgaming.spring.game.server.proto.UserMessage;
+import wxdgaming.spring.game.server.proto.user.ReqHeart;
+import wxdgaming.spring.game.server.proto.user.ReqLogin;
 
 /**
  * 登录测试
@@ -34,13 +36,13 @@ public class LoginTest {
 
     @Test
     public void login() throws Exception {
+
+        socketClient.getSessionGroup().writeAndFlush(new ReqHeart().setMilli(MyClock.millis()));
+
         String compact = JwtUtils.createJwtBuilder()
                 .claim("openId", "123")
                 .compact();
-
-        socketClient.connect(session -> {
-            session.writeAndFlush(new UserMessage.ReqLogin().setToken(compact).setParams(""));
-        });
+        socketClient.getSessionGroup().writeAndFlush(new ReqLogin().setToken(compact).setParams(""));
         System.in.read();
     }
 

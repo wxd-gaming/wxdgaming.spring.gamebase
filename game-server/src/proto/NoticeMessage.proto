@@ -1,0 +1,18 @@
+syntax = "proto3";
+//把文件拆分
+//option java_multiple_files = true;
+//导出包名
+option java_package = "wxdgaming.spring.game.server.proto";
+
+//提示通知类型
+enum NoticeType {
+    NOTICE_TYPE_NONE                    = 0;
+    NOTICE_TYPE_SYSTEM                  = 1;
+    NOTICE_TYPE_GAME                    = 2;
+}
+
+//提示通知
+message ResNotice {
+    NoticeType noticeType               = 1;
+    string content                      = 2;
+}

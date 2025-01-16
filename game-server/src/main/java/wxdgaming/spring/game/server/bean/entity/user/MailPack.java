@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import wxdgaming.spring.boot.data.EntityBase;
+import wxdgaming.spring.game.server.bean.entity.mail.Mail;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 邮件背包
@@ -15,5 +18,7 @@ import wxdgaming.spring.boot.data.EntityBase;
 @Setter
 @Entity
 public class MailPack extends EntityBase<Long> {
+
+    private final ConcurrentHashMap<Long, Mail> packs = new ConcurrentHashMap<>();
 
 }

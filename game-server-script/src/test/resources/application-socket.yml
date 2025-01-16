@@ -10,6 +10,7 @@ socket:
       host: 127.0.0.1
       port: 18001
       scanMessages: ["wxdgaming.spring.game.server.proto"]
+      scanHandlers: ["code"]
       enable-reconnection: true
       idleTimeout: 30 # 单位秒
       connectTimeout: 500 # 单位毫秒

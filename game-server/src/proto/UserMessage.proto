@@ -4,29 +4,44 @@ syntax = "proto3";
 //导出包名
 option java_package = "wxdgaming.spring.game.server.proto";
 
-//执行同步等待消息
+//玩家心跳包
 message ReqHeart {
     int64 milli             = 1;//当前毫秒
 }
 
-//执行同步等待消息
+//玩家心跳包
 message ResHeart {
     int64 milli             = 1;//当前毫秒
 }
 
+//登录请求
 message ReqLogin {
     string token                    = 2;//jwt token
     string params                   = 3;//参数 json格式
 }
 
+//回复登录消息
 message ResLogin {
     repeated RoleBean roleList      = 2;//角色列表
 }
 
+//角色信息
 message RoleBean {
     int64 uid                         = 1;//账号id
     int64 rid                         = 2;//角色id
     string name                       = 3;//角色名称
     int32 level                       = 4;//等级
     int64 exp                         = 5;//当前经验值
+}
+
+//创建角色
+message ReqCreateRole {
+    string name                       = 1;//角色名称
+    int32 job                         = 2;//角色职业
+    int32 sex                         = 3;//性别
+}
+
+//创建角色
+message ResCreateRole {
+    RoleBean role                     = 1;//角色信息
 }
