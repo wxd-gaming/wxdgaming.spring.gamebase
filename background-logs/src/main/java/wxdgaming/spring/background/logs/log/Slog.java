@@ -1,12 +1,12 @@
-package wxdgaming.spring.gamebase.background.entity.slog;
+package wxdgaming.spring.background.logs.log;
 
 import com.alibaba.fastjson.JSONObject;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -15,26 +15,29 @@ import wxdgaming.spring.boot.data.EntityBase;
 import wxdgaming.spring.boot.data.converter.JSONObjectToJsonConverter;
 
 /**
- * 后台日志
+ * 日志
  *
  * @author: wxd-gaming(無心道, 15388152619)
- * @version: 2024-11-26 16:36
- */
+ * @version: 2025-01-17 16:07
+ **/
 @Getter
 @Setter
-@Accessors(chain = true)
-@Entity()
+@Entity
+@Table(indexes = {
+        @jakarta.persistence.Index(columnList = "gameId"),
+})
 public class Slog extends EntityBase<Long> {
 
-    int gameId;
-    int sid;
-    int mainSid;
-    String loginAccount;
-    long roleId;
-    String roleName;
-    int lv;
-    int vipLv;
-    String clientIp;
+    private String logType;
+    private int gameId;
+    private int sid;
+    private int mainSid;
+    private String loginAccount;
+    private long roleId;
+    private String roleName;
+    private int lv;
+    private int vipLv;
+    private String clientIp;
     /**
      * SELECT JSON_EXTRACT(content, '$.box') AS box_value, JSON_EXTRACT(content, '$.test') AS test_value
      * FROM logs
@@ -44,6 +47,6 @@ public class Slog extends EntityBase<Long> {
     @JdbcType(JsonJdbcType.class)
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "json", nullable = false)
-    JSONObject content;
+    private JSONObject content;
 
 }

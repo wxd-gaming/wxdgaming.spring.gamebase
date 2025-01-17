@@ -17,6 +17,7 @@
         <module>background</module>
         <module>game-server</module>
         <module>game-server-script</module>
+        <module>background-logs</module>
     </modules>
 
     <properties>
