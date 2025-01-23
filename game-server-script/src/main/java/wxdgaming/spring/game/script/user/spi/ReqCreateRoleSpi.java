@@ -2,7 +2,7 @@ package wxdgaming.spring.game.script.user.spi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import wxdgaming.spring.boot.net.ProtoMapper;
+import wxdgaming.spring.boot.net.ProtoMapping;
 import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.game.server.proto.user.ReqCreateRole;
 
@@ -16,7 +16,7 @@ import wxdgaming.spring.game.server.proto.user.ReqCreateRole;
 @Component
 public class ReqCreateRoleSpi {
 
-    @ProtoMapper
+    @ProtoMapping
     public void ReqCreateRole(SocketSession socketSession, ReqCreateRole req) {
 
     }

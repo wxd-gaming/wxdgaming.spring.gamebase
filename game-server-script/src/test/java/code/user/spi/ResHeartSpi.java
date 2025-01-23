@@ -2,7 +2,7 @@ package code.user.spi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import wxdgaming.spring.boot.net.ProtoMapper;
+import wxdgaming.spring.boot.net.ProtoMapping;
 import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.game.server.proto.user.ResHeart;
 
@@ -16,7 +16,7 @@ import wxdgaming.spring.game.server.proto.user.ResHeart;
 @Component
 public class ResHeartSpi {
 
-    @ProtoMapper
+    @ProtoMapping
     public void ResHeart(SocketSession socketSession, ResHeart req) {
 
     }

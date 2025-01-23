@@ -2,7 +2,7 @@ package code.notice.spi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import wxdgaming.spring.boot.net.ProtoMapper;
+import wxdgaming.spring.boot.net.ProtoMapping;
 import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.game.server.proto.notice.ResNotice;
 
@@ -16,7 +16,7 @@ import wxdgaming.spring.game.server.proto.notice.ResNotice;
 @Component
 public class ResNoticeSpi {
 
-    @ProtoMapper
+    @ProtoMapping
     public void ResNotice(SocketSession socketSession, ResNotice req) {
 
     }

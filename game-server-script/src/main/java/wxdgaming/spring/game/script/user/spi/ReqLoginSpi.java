@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wxdgaming.spring.boot.core.util.JwtUtils;
-import wxdgaming.spring.boot.net.ProtoMapper;
+import wxdgaming.spring.boot.net.ProtoMapping;
 import wxdgaming.spring.boot.net.SocketSession;
 import wxdgaming.spring.game.server.bean.entity.user.PlayerSummary;
 import wxdgaming.spring.game.server.module.user.UserService;
@@ -31,7 +31,7 @@ public class ReqLoginSpi {
         this.userService = userService;
     }
 
-    @ProtoMapper
+    @ProtoMapping
     public void ReqLogin(SocketSession socketSession, ReqLogin req) {
         String token = req.getToken();
         Jws<Claims> claimsJws = JwtUtils.parseJWT(token);
